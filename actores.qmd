@@ -54,6 +54,16 @@ plt.show()
 ```
 
 
+### Resumen de popularidad
+
+Muy alta: Cambio climático, restauración y monitoreo con IA — reciben la mayoría de las publicaciones y financiación.
+
+Alta: Conservación comunitaria, gestión del agua y NbS — con fuerte respaldo institucional y agendas globales.
+
+Media: Políticas socioambientales y estudios sociocognitivos — en ascenso interdisciplinar, con creciente relevancia social.
+
+Moderada: Sistemática de insectos — campo especializado, pero beneficiado por tendencias tecnológicas.
+
 ## Análisis de temas y actores
 
 ### Temas originales
