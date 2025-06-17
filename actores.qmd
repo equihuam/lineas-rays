@@ -42,7 +42,8 @@ dist_df_nuevos = pd.DataFrame(dist_matrix_nuevos, index=temas_nuevos, columns=te
 # Graficar el mapa de calor con la matriz de distancias calculada
 plt.figure(figsize=(7.2, 4.7))
 sns.set(font_scale=0.55)
-sns.heatmap(dist_df_nuevos, annot=True, cmap="YlOrRd", xticklabels=True, yticklabels=True)
+# cmap="YlGnBu" o YlOrRd
+sns.heatmap(dist_df_nuevos, annot=True, cmap="YlGnBu", xticklabels=True, yticklabels=True)
 plt.title("Matriz de calor: Distancia semántica entre temas")
 plt.xticks(rotation=45, ha='right', fontsize=8)
 plt.yticks(rotation=0, fontsize=8)
@@ -55,7 +56,7 @@ plt.show()
 
 ## Análisis de temas y actores
 
-### Temas originalez
+### Temas originales
 
 ```{python}
 #| label: temas-orig-act
