@@ -64,6 +64,17 @@ Media: Políticas socioambientales y estudios sociocognitivos — en ascenso int
 
 Moderada: Sistemática de insectos — campo especializado, pero beneficiado por tendencias tecnológicas.
 
+```{r}
+library(readr)
+library(flextable)
+
+tema_relevancia <- read_csv("~/0 Versiones/lineas-rays/data/Analisis_Temas_con_Politicas_P_blicas.csv")
+
+flextable(tema_relevancia)
+
+```
+
+
 ## Análisis de temas y actores
 
 ### Temas originales

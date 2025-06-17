@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,6 +67,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="actores_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="actores_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="actores_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="actores_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="actores_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
 
 
 </head>
@@ -64,11 +102,17 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="semejanza-entre-los-temas" class="level2">
 <h2 class="anchored" data-anchor-id="semejanza-entre-los-temas">Semejanza entre los temas</h2>
-<div id="cell-dist-temas" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>(array([0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5]), [Text(0.5, 0, 'Cambio global, sostenibilidad y dinámica del paisaje'), Text(1.5, 0, 'Conservación y manejo comunitario de la biodiversidad'), Text(2.5, 0, 'Evaluación ambiental, restauración y manejo de ecosistemas'), Text(3.5, 0, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), Text(4.5, 0, 'Gestión del agua y procesos hidrológicos'), Text(5.5, 0, 'Políticas y justicia socioambiental'), Text(6.5, 0, 'Sistemática y ecología de insectos'), Text(7.5, 0, 'Tecnología para el monitoreo ambiental')])</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(array([0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5]), [Text(0, 0.5, 'Cambio global, sostenibilidad y dinámica del paisaje'), Text(0, 1.5, 'Conservación y manejo comunitario de la biodiversidad'), Text(0, 2.5, 'Evaluación ambiental, restauración y manejo de ecosistemas'), Text(0, 3.5, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), Text(0, 4.5, 'Gestión del agua y procesos hidrológicos'), Text(0, 5.5, 'Políticas y justicia socioambiental'), Text(0, 6.5, 'Sistemática y ecología de insectos'), Text(0, 7.5, 'Tecnología para el monitoreo ambiental')])</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/dist-temas-output-1.png" id="dist-temas" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/dist-temas-1.png" class="img-fluid figure-img" width="691"></p>
 </figure>
 </div>
 </div>
@@ -79,17 +123,42 @@ ul.task-list li input[type="checkbox"] {
 <p>Alta: Conservación comunitaria, gestión del agua y NbS — con fuerte respaldo institucional y agendas globales.</p>
 <p>Media: Políticas socioambientales y estudios sociocognitivos — en ascenso interdisciplinar, con creciente relevancia social.</p>
 <p>Moderada: Sistemática de insectos — campo especializado, pero beneficiado por tendencias tecnológicas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tema_relevancia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"~/0 Versiones/lineas-rays/data/Analisis_Temas_con_Politicas_P_blicas.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 8 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): Tema, Relevancia en México, Relevancia Internacional, Originalidad,...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(tema_relevancia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-3b18183c{}.cl-3b0947d0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-3b0f2d3a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-3b0f6f52{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3b0f6f5c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-3b0f6f66{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-3b18183c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Tema</span></p></th><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Relevancia en México</span></p></th><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Relevancia Internacional</span></p></th><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Originalidad</span></p></th><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Actores Principales</span></p></th><th class="cl-3b0f6f52"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Políticas Públicas Asociadas</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Cambio global, sostenibilidad y dinámica del paisaje</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Media</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gobiernos, académicos, jóvenes</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Ley General de Cambio Climático, Estrategia Nacional de Cambio Climático</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Conservación y manejo comunitario de la biodiversidad</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Indígenas, comunidades rurales, ONGs, académicos</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Programa de Manejo Forestal Comunitario, Áreas Naturales Protegidas (ANP), CONANP</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Evaluación ambiental, restauración y manejo de ecosistemas</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Media</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gobiernos, comunidades rurales, académicos</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Evaluación de Impacto Ambiental (EIA), NOMs ecológicas, Estrategia Nacional de Restauración</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Media</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Académicos, jóvenes, indígenas, ONGs</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Educación Ambiental, Ley General de Educación, Estrategias de participación social (INECC, CONACYT)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gestión del agua y procesos hidrológicos</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Baja</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gobiernos, comunidades rurales, académicos</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Ley de Aguas Nacionales, Programas de Cuenca, Plan Nacional Hídrico</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Políticas y justicia socioambiental</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Media</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gobiernos, ONGs, indígenas, mujeres</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Ley de Equilibrio Ecológico, Ley Agraria, Acuerdos de Escazú, derechos indígenas</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Sistemática y ecología de insectos</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Media</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Baja</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Académicos, productores rurales</span></p></td><td class="cl-3b0f6f5c"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Estrategia Nacional sobre Biodiversidad, Inventarios de especies, museos y colecciones biológicas</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Tecnología para el monitoreo ambiental</span></p></td><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Muy alta</span></p></td><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Alta</span></p></td><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Gobiernos, académicos, jóvenes</span></p></td><td class="cl-3b0f6f66"><p class="cl-3b0f2d3a"><span class="cl-3b0947d0">Estrategia de Monitoreo Ambiental, CONABIO, SENASICA, Red de Observación Ambiental Mexicana</span></p></td></tr></tbody></table></div>
+</div>
+</div>
 </section>
 </section>
 <section id="análisis-de-temas-y-actores" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-de-temas-y-actores">Análisis de temas y actores</h2>
 <section id="temas-originales" class="level3">
 <h3 class="anchored" data-anchor-id="temas-originales">Temas originales</h3>
-<div id="cell-temas-orig-act" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Cambio global, sostenibilidad y dinámica del paisaje': Text(-0.0624978492729794, 0.4575664662334705, 'Cambio global, sostenibilidad y dinámica del paisaje'), 'INECC': Text(0.5650102480336416, 0.416402871418983, 'INECC'), 'Universidades (UNAM, COLMEX)': Text(-0.3389949954584642, -0.056761492397590194, 'Universidades (UNAM, COLMEX)'), 'Gobiernos estatales': Text(-0.669757494865037, 0.4844468017755337, 'Gobiernos estatales'), 'Consultores en ordenamiento ecológico': Text(0.3750750425420953, 0.8085408809558196, 'Consultores en ordenamiento ecológico'), 'Conservación y manejo comunitario de la biodiversidad': Text(-0.15237133530343863, -0.3344438306325074, 'Conservación y manejo comunitario de la biodiversidad'), 'CONANP': Text(0.3582599955464305, -0.5566954355629011, 'CONANP'), 'Comunidades indígenas': Text(-0.5632424782171709, -0.7602187062886925, 'Comunidades indígenas'), 'ONGs ambientales': Text(-0.6737872445557275, -0.10138013554691748, 'ONGs ambientales'), 'Universidades (UV, UNAM)': Text(0.06904244952377218, -0.7413788809991555, 'Universidades (UV, UNAM)'), 'Evaluación ambiental, restauración y manejo de ecosistemas': Text(0.3358248037465092, -0.7137899546161107, 'Evaluación ambiental, restauración y manejo de ecosistemas'), 'SEMARNAT': Text(-0.16911229362196217, -0.8359200693758143, 'SEMARNAT'), 'Brigadas comunitarias': Text(0.4887249976709545, -0.11500741770653332, 'Brigadas comunitarias'), 'Consultoras ambientales': Text(0.007148049820860026, -0.7110792715035942, 'Consultoras ambientales'), 'Investigadores en restauración': Text(0.3471780275281644, -0.957179446073621, 'Investigadores en restauración'), 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad': Text(0.49110866728011443, 0.017664012283680162, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), 'Académicos en ciencias sociales': Text(0.14218714122303752, 0.5494349986241643, 'Académicos en ciencias sociales'), 'Organizaciones comunitarias': Text(1.0, 0.28783803306786254, 'Organizaciones comunitarias'), 'Facilitadores interculturales': Text(0.23868290120509159, -0.6729021481705132, 'Facilitadores interculturales'), 'ONGs de educación': Text(0.94763755036984, -0.08634617225386398, 'ONGs de educación'), 'Gestión del agua y procesos hidrológicos': Text(-0.5895012881360083, 0.15200078287499993, 'Gestión del agua y procesos hidrológicos'), 'CONAGUA': Text(-0.8173014246149101, 0.5264070643963192, 'CONAGUA'), 'Institutos hidrológicos': Text(-0.520709042659456, 0.6256792341649053, 'Institutos hidrológicos'), 'Comunidades de cuenca': Text(-0.44347930176874634, 0.35001462264494154, 'Comunidades de cuenca'), 'Universidades técnicas': Text(-0.3280034059804872, -0.4842514394031997, 'Universidades técnicas'), 'Políticas y justicia socioambiental': Text(-0.16607160564194945, 0.1597243466125637, 'Políticas y justicia socioambiental'), 'CNDH': Text(0.3186844828487789, 0.48947601864769896, 'CNDH'), 'Organizaciones defensoras del territorio': Text(0.05422551485822452, 0.745969105201249, 'Organizaciones defensoras del territorio'), 'Juristas ambientales': Text(-0.6436932687248946, -0.2587008386027831, 'Juristas ambientales'), 'OSC y redes ciudadanas': Text(-0.8044728699124399, -0.05254966480384016, 'OSC y redes ciudadanas'), 'Sistemática y ecología de insectos': Text(0.054354098114434354, 0.4748009286751579, 'Sistemática y ecología de insectos'), 'Institutos de biología': Text(0.5873001256113985, 0.06809408050703432, 'Institutos de biología'), 'Entomólogos': Text(-0.41300390111286206, 0.5457372264504188, 'Entomólogos'), 'Universidades': Text(-0.34561605354976543, 0.8001589032645939, 'Universidades'), 'Museos de historia natural': Text(0.0038433218276537873, 0.9623314448294241, 'Museos de historia natural'), 'Tecnología para el monitoreo ambiental': Text(0.2915780579857476, -0.4170616661837803, 'Tecnología para el monitoreo ambiental'), 'SEMARNAT, CONABIO': Text(-0.39653038346007863, -0.3072828645879587, 'SEMARNAT, CONABIO'), 'Centros de investigación en teledetección y sensores': Text(0.7087531981566221, 0.009639284733756843, 'Centros de investigación en teledetección y sensores'), 'Empresas tecnológicas ambientales': Text(0.713527562963007, -0.7689776726532016, 'Empresas tecnológicas ambientales')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.0081180741994755), np.float64(1.1908166495845656), np.float64(-1.1587280896184409), np.float64(1.163880088374244))</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/temas-orig-act-output-1.png" id="temas-orig-act" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/temas-orig-act-1.png" class="img-fluid figure-img" width="1536"></p>
 </figure>
 </div>
 </div>
@@ -98,26 +167,49 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="dendrograma" class="level2">
 <h2 class="anchored" data-anchor-id="dendrograma">Dendrograma</h2>
-<div id="cell-dendro" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\equih\AppData\Local\Temp\ipykernel_48372\3842526135.py:15: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all Axes decorations.
-  plt.tight_layout()</code></pre>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>{'icoord': [[5.0, 5.0, 15.0, 15.0], [35.0, 35.0, 45.0, 45.0], [25.0, 25.0, 40.0, 40.0], [65.0, 65.0, 75.0, 75.0], [55.0, 55.0, 70.0, 70.0], [32.5, 32.5, 62.5, 62.5], [10.0, 10.0, 47.5, 47.5]], 'dcoord': [[0.0, np.float64(0.864361672432015), np.float64(0.864361672432015), 0.0], [0.0, np.float64(0.7513306164247533), np.float64(0.7513306164247533), 0.0], [0.0, np.float64(0.9118362329269345), np.float64(0.9118362329269345), np.float64(0.7513306164247533)], [0.0, np.float64(0.867761706680756), np.float64(0.867761706680756), 0.0], [0.0, np.float64(1.0403508415303147), np.float64(1.0403508415303147), np.float64(0.867761706680756)], [np.float64(0.9118362329269345), np.float64(1.1014941714876463), np.float64(1.1014941714876463), np.float64(1.0403508415303147)], [np.float64(0.864361672432015), np.float64(1.1526126868944764), np.float64(1.1526126868944764), np.float64(1.1014941714876463)]], 'ivl': ['Cambio global, sostenibilidad y dinámica del paisaje', 'Gestión del agua y procesos hidrológicos', 'Sistemática y ecología de insectos', 'Conservación y manejo comunitario de la biodiversidad', 'Evaluación ambiental, restauración y manejo de ecosistemas', 'Políticas y justicia socioambiental', 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad', 'Tecnología para el monitoreo ambiental'], 'leaves': [0, 4, 6, 1, 2, 5, 3, 7], 'color_list': ['C0', 'C1', 'C0', 'C0', 'C0', 'C0', 'C0'], 'leaves_color_list': ['C0', 'C0', 'C0', 'C1', 'C1', 'C0', 'C0', 'C0']}</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;string&gt;:1: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all Axes decorations.</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/dendro-output-2.png" id="dendro" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/dendro-3.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="vincular-con-actores" class="level3">
 <h3 class="anchored" data-anchor-id="vincular-con-actores">Vincular con actores</h3>
-<div id="cell-vincula-actores" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 1600x1200 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x00000206444E4650&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x000002063EEDC500&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.LineCollection object at 0x000002063EE1EC30&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Cambio global, sostenibilidad y dinámica del paisaje': Text(-0.3609009462346668, 0.7822988764656522, 'Cambio global, sostenibilidad y dinámica del paisaje'), 'Gubernamentales': Text(0.13747219509135727, 0.4550580170348417, 'Gubernamentales'), 'Académicos': Text(0.037751674442292125, 0.1449632418573505, 'Académicos'), 'Jóvenes': Text(-0.8688860349951055, 0.26218652472790777, 'Jóvenes'), 'Conservación y manejo comunitario de la biodiversidad': Text(0.3693028744550109, -0.6644332288643554, 'Conservación y manejo comunitario de la biodiversidad'), 'Indígenas': Text(-0.07232499356984427, -0.5481347480962971, 'Indígenas'), 'Comunidades rurales': Text(0.9999999999999999, -0.44532512338139335, 'Comunidades rurales'), 'Mujeres': Text(-0.363522079600453, -0.8714691839048371, 'Mujeres'), 'Evaluación ambiental, restauración y manejo de ecosistemas': Text(0.7787736896125788, 0.16419376226740812, 'Evaluación ambiental, restauración y manejo de ecosistemas'), 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad': Text(-0.6369229513881214, -0.3733715772284907, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), 'Gestión del agua y procesos hidrológicos': Text(0.4418282934719787, -0.2137855231612836, 'Gestión del agua y procesos hidrológicos'), 'Políticas y justicia socioambiental': Text(-0.364680955615365, -0.1298649079884585, 'Políticas y justicia socioambiental'), 'Sistemática y ecología de insectos': Text(0.41767319983009493, 0.8968432509690832, 'Sistemática y ecología de insectos'), 'Tecnología para el monitoreo ambiental': Text(-0.5155639654997571, 0.5408406193028712, 'Tecnología para el monitoreo ambiental')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'Gráfico relacional: Temas y actores clave')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.0651190686695915), np.float64(1.196233033674486), np.float64(-1.0571419895665988), np.float64(1.082516056630845))</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/vincula-actores-output-1.png" id="vincula-actores" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/vincula-actores-5.png" class="img-fluid figure-img" width="1536"></p>
 </figure>
 </div>
 </div>
@@ -125,11 +217,32 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="actores-transversales" class="level3">
 <h3 class="anchored" data-anchor-id="actores-transversales">Actores transversales</h3>
-<div id="cell-act-transversal" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 1600x1200 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x000002063EEDF2C0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x000002063EE9D8E0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.LineCollection object at 0x000002064459E9C0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Cambio global, sostenibilidad y dinámica del paisaje': Text(0.11045939807064088, 0.7004683869202417, 'Cambio global, sostenibilidad y dinámica del paisaje'), 'Gobiernos y tomadores de decisiones': Text(0.5265102727958125, 0.35533445564387356, 'Gobiernos y tomadores de decisiones'), 'Instituciones académicas y científicas': Text(-0.03520068950960511, 0.15250359379606063, 'Instituciones académicas y científicas'), 'Conservación y manejo comunitario de la biodiversidad': Text(-0.38206185422190647, 0.04615480090146767, 'Conservación y manejo comunitario de la biodiversidad'), 'Comunidades locales/rurales e indígenas': Text(0.12687725059369162, -0.07599429850205901, 'Comunidades locales/rurales e indígenas'), 'Organizaciones sociales y ONGs': Text(-0.2549241140549408, -0.30184813658855364, 'Organizaciones sociales y ONGs'), 'Evaluación ambiental, restauración y manejo de ecosistemas': Text(0.5197362700200926, 0.04458479103254183, 'Evaluación ambiental, restauración y manejo de ecosistemas'), 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad': Text(-0.007859392118596938, -0.4167251630213755, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), 'Gestión del agua y procesos hidrológicos': Text(0.20860457956502515, 0.3538687994036627, 'Gestión del agua y procesos hidrológicos'), 'Políticas y justicia socioambiental': Text(0.36115768189344627, -0.24548675826843314, 'Políticas y justicia socioambiental'), 'Sistemática y ecología de insectos': Text(-0.6115764834814542, -0.44485573606967843, 'Sistemática y ecología de insectos'), 'Productores rurales / campesinos': Text(-1.0, -0.8325191090494619, 'Productores rurales / campesinos'), 'Tecnología para el monitoreo ambiental': Text(0.4382770804477939, 0.6645143738017136, 'Tecnología para el monitoreo ambiental')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'Gráfico relacional: Temas y nuevos actores clave')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.1602835786435604), np.float64(0.6867938514393729), np.float64(-0.9934827961262809), np.float64(0.8614320739970607))</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/act-transversal-output-1.png" id="act-transversal" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/act-transversal-7.png" class="img-fluid figure-img" width="1536"></p>
 </figure>
 </div>
 </div>
@@ -137,11 +250,37 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="cluster-temáticos" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-temáticos">Cluster temáticos</h3>
-<div id="cell-clusters" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>'Cambio global, sostenibilidad y dinámica del paisaje → Gestión del agua y procesos hidrológicos → Sistemática y ecología de insectos → Conservación y manejo comunitario de la biodiversidad → Evaluación ambiental, restauración y manejo de ecosistemas → Políticas y justicia socioambiental → Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad → Tecnología para el monitoreo ambiental'</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 500x500 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x000002063CEB7F20&gt;
+&lt;matplotlib.collections.PathCollection object at 0x0000020644581C10&gt;
+&lt;matplotlib.collections.PathCollection object at 0x0000020644581CA0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.LineCollection object at 0x0000020644521100&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Cambio global, sostenibilidad y dinámica del paisaje': Text(0.5305776088687524, 1.0, 'Cambio global, sostenibilidad y dinámica del paisaje'), 'Gestión del agua y procesos hidrológicos': Text(0.8455699860480177, 0.544946995641721, 'Gestión del agua y procesos hidrológicos'), 'Evaluación ambiental, restauración y manejo de ecosistemas': Text(-0.684445375920798, -0.4544510923714745, 'Evaluación ambiental, restauración y manejo de ecosistemas'), 'Conservación y manejo comunitario de la biodiversidad': Text(-0.6686714117256344, 0.29928611360466917, 'Conservación y manejo comunitario de la biodiversidad'), 'Sistemática y ecología de insectos': Text(0.07644050421444132, 0.5650841756494884, 'Sistemática y ecología de insectos'), 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad': Text(0.009898568138910602, -0.28084381042381373, 'Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad'), 'Políticas y justicia socioambiental': Text(0.07224148347459763, -0.7547823364242487, 'Políticas y justicia socioambiental'), 'Tecnología para el monitoreo ambiental': Text(-0.18161136309828724, -0.9192400456763421, 'Tecnología para el monitoreo ambiental')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'Mapa conceptual: Temas agrupados por cercanía semántica (Clusters)')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-0.8450969889275236), np.float64(1.0062215990547434), np.float64(-1.120760250472358), np.float64(1.2015202047960158))</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.legend.Legend object at 0x0000020644581B80&gt;</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/clusters-output-1.png" id="clusters" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/clusters-9.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -400,25 +539,88 @@ ul.task-list li input[type="checkbox"] {
 <p>Comunidades rurales e indígenas: Aunque su influencia institucional es baja, su interés es alto y su papel en la ejecución de proyectos es fundamental → clave empoderarlas.</p>
 <p>Gobiernos y universidades: Actores con capacidad técnica y decisional; son indispensables para escala y sostenibilidad.</p>
 <p>ONGs: Pueden mediar entre comunidades y Estado, facilitar procesos participativos y fortalecer capacidades locales.</p>
-<div id="cell-graf-act-interes" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>(0.0, 10.0)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(0.0, 10.0)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.lines.Line2D object at 0x000002063EE9DFD0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.lines.Line2D object at 0x00000206444E48F0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'Matriz de Interés - Influencia de Actores Clave')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 0, 'Interés')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0, 0.5, 'Influencia')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x0000020648214500&gt;
+Text(8.2, 9, 'Gobiernos\ny universidades')
+&lt;matplotlib.collections.PathCollection object at 0x000002064825E390&gt;
+Text(7.2, 8, 'ONGs ambientales')
+&lt;matplotlib.collections.PathCollection object at 0x0000020640F13D70&gt;
+Text(9.2, 4, 'Comunidades rurales\ne indígenas')
+&lt;matplotlib.collections.PathCollection object at 0x00000206445811C0&gt;
+Text(8.2, 3, 'Productores agroecológicos')
+&lt;matplotlib.collections.PathCollection object at 0x000002064825DAC0&gt;
+Text(7.2, 2, 'Grupos juveniles\ny escolares')
+&lt;matplotlib.collections.PathCollection object at 0x000002064825E480&gt;
+Text(4.2, 8, 'Instituciones tecnológicas')
+&lt;matplotlib.collections.PathCollection object at 0x00000206444E7260&gt;
+Text(3.2, 7, 'Agencias no ambientales')
+&lt;matplotlib.collections.PathCollection object at 0x000002063EE68D40&gt;
+Text(5.2, 7, 'Empresas del sector\nhídrico/agropecuario')
+&lt;matplotlib.collections.PathCollection object at 0x0000020644583020&gt;
+Text(2.2, 2, 'Población urbana\nno organizada')
+&lt;matplotlib.collections.PathCollection object at 0x000002064459F5F0&gt;
+Text(3.2, 3, 'Actores externos\n(turismo, inmobiliario)')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(7, 9.5, 'Gestión cercana')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(1, 9.5, 'Apoyo / Empoderamiento')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(7, 0.5, 'Monitoreo estratégico')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(1, 0.5, 'Seguimiento mínimo')</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/graf-act-interes-output-1.png" id="graf-act-interes" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/graf-act-interes-11.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Qué tal un DAG de todo esto</p>
-<div id="cell-DAG" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\equih\AppData\Local\Temp\ipykernel_48372\892479934.py:72: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()</code></pre>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 1200x800 with 0 Axes&gt;</code></pre>
 </div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'DAG: Relaciones entre actores clave en la sostenibilidad socioambiental')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.2038235294117647), np.float64(1.145), np.float64(-1.1744117647058825), np.float64(1.1744117647058825))</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;string&gt;:1: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/dag-output-2.png" id="dag" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/DAG-13.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -435,11 +637,32 @@ ul.task-list li input[type="checkbox"] {
 <li>Comunidades locales → Actores externos (por impacto territorial).</li>
 <li>Gobiernos / ONGs → Actores externos (regulación o mitigación de impactos).</li>
 </ul>
-<div id="cell-DAG-ext" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 1200x800 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x0000020644583D70&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Gobiernos': Text(-1.0, 0.3235294117647059, 'Gobiernos'), 'Universidades': Text(-1.0, -0.3235294117647059, 'Universidades'), 'ONGs ambientales': Text(-0.3529411764705882, 0.0, 'ONGs ambientales'), 'Instituciones tecnológicas': Text(-0.3529411764705882, -0.6470588235294118, 'Instituciones tecnológicas'), 'Agencias no ambientales': Text(-0.3529411764705882, 0.6470588235294118, 'Agencias no ambientales'), 'Comunidades rurales': Text(0.29411764705882354, -0.3235294117647059, 'Comunidades rurales'), 'Pueblos indígenas': Text(0.29411764705882354, -0.9705882352941178, 'Pueblos indígenas'), 'Productores agroecológicos': Text(0.29411764705882354, 0.9705882352941178, 'Productores agroecológicos'), 'Grupos juveniles': Text(0.29411764705882354, 0.3235294117647059, 'Grupos juveniles'), 'Población urbana': Text(0.9411764705882354, -0.3235294117647059, 'Población urbana'), 'Actores externos': Text(0.9411764705882354, 0.3235294117647059, 'Actores externos')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[&lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466C94F0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646669BE0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064825C230&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002063EE4CFE0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020644520470&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064825F050&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064666FD10&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020648215F70&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064663C890&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466C9D90&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064825DF10&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646669CD0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020644581E80&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206445B9970&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466C93D0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466C8E90&gt;]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[&lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466CA1B0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466CB050&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206444E5910&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002063EE1DD30&gt;]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'DAG: Relaciones entre actores clave, incluyendo actores externos')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.2038235294117647), np.float64(1.145), np.float64(-1.1744117647058825), np.float64(1.1744117647058825))</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/dag-ext-output-1.png" id="dag-ext" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/DAG-ext-15.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -448,11 +671,32 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="temas-y-actores" class="level2">
 <h2 class="anchored" data-anchor-id="temas-y-actores">Temas y actores</h2>
-<div id="cell-DAG-t-act" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Figure size 1800x1200 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x00000206467008C0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;matplotlib.collections.PathCollection object at 0x0000020646703650&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[&lt;matplotlib.patches.FancyArrowPatch object at 0x000002063EEDDB20&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002063EE1E4B0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020648215820&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466CB740&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646703050&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672A8D0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020648215A00&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672A120&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467299D0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466684D0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466FED50&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646728FB0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646728E90&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020648215910&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064666C8C0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672B530&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002063EE4DE80&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466FCA10&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672BBF0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672BD40&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206466FFEF0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467AC260&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467AC4A0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206482AF560&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206482AC830&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467ACA70&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020648292510&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064672A600&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467AD160&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646669F10&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x000002064663D130&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467AD790&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467AD9A0&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x0000020646703410&gt;, &lt;matplotlib.patches.FancyArrowPatch object at 0x00000206467ADDC0&gt;]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'Agroecología y sistemas alimentarios sustentables': Text(0.03695560642749572, 0.8365332500145768, 'Agroecología y sistemas alimentarios sustentables'), 'Cambio climático y uso del suelo': Text(0.8787924902454357, 0.07853168388297371, 'Cambio climático y uso del suelo'), 'Conservación y manejo comunitario de la biodiversidad': Text(-0.6126946483583727, -0.8783926132157988, 'Conservación y manejo comunitario de la biodiversidad'), 'Evaluación ambiental, restauración y manejo de ecosistemas': Text(-0.930739142983064, 0.13089738136409307, 'Evaluación ambiental, restauración y manejo de ecosistemas'), 'Educación ambiental y comunicación': Text(0.5986934557506277, 0.5245184500458455, 'Educación ambiental y comunicación'), 'Justicia ambiental y gobernanza participativa': Text(-0.7506231250105596, 0.5743203076113432, 'Justicia ambiental y gobernanza participativa'), 'Transición energética y sostenibilidad territorial': Text(0.8785751682169688, -0.5271073073212682, 'Transición energética y sostenibilidad territorial'), 'Gubernamentales (SADER, locales)': Text(-0.1913858778877638, -0.06006289690830628, 'Gubernamentales (SADER, locales)'), 'Comunidades rurales, ejidos': Text(-0.3800572876059075, 0.45696014470954804, 'Comunidades rurales, ejidos'), 'Academia (INIFAP, IPN)': Text(0.2685109893467454, 0.3923357849753115, 'Academia (INIFAP, IPN)'), 'Agroindustria, certificadoras': Text(0.04098794913147002, -0.07715137458944732, 'Agroindustria, certificadoras'), 'FAO, Slow Food': Text(-0.4042418700360774, 0.2622802273417966, 'FAO, Slow Food'), 'SEMARNAT, INECC': Text(0.47932415940844375, 0.4953153454890418, 'SEMARNAT, INECC'), 'Redes comunitarias': Text(0.09843900353617673, -0.04407473807416903, 'Redes comunitarias'), 'Academia (UNAM, CIESAS)': Text(0.5808489066758894, -0.6343703841320328, 'Academia (UNAM, CIESAS)'), 'Sector inmobiliario, energético': Text(0.7724373189552278, -0.5194091069689347, 'Sector inmobiliario, energético'), 'PNUD, GIZ, WWF': Text(0.10497608403603156, 0.491979792674706, 'PNUD, GIZ, WWF'), 'CONANP, INPI': Text(0.2672350465401992, -0.16070546087840057, 'CONANP, INPI'), 'Comunidades indígenas, ejidos': Text(-0.3963720192662834, -0.9999999999999999, 'Comunidades indígenas, ejidos'), 'CONABIO, investigadores': Text(0.0714876847413602, -0.6575616607778589, 'CONABIO, investigadores'), 'Biocomercio, ecoturismo': Text(-0.8243103826535848, -0.42891540661158367, 'Biocomercio, ecoturismo'), 'TNC, Rainforest Alliance': Text(-0.7690404552294998, -0.0661725866859848, 'TNC, Rainforest Alliance'), 'SEMARNAT, ASEA': Text(-0.4884572722158998, 0.5567964751980209, 'SEMARNAT, ASEA'), 'Brigadas y restauradores locales': Text(-0.3842738286938748, 0.3682993291462836, 'Brigadas y restauradores locales'), 'Ecólogos, académicos': Text(-0.4302936321030608, -0.4991908780884263, 'Ecólogos, académicos'), 'Consultoras, reforestadoras privadas': Text(0.16382062601994604, 0.179662986642411, 'Consultoras, reforestadoras privadas'), 'IUCN, Reforestamos México': Text(0.01543013001836186, 0.5519372347083632, 'IUCN, Reforestamos México'), 'SEP, gobiernos locales': Text(0.34773276435762845, 0.7623887584469141, 'SEP, gobiernos locales'), 'Escuelas, colectivos locales': Text(-0.2360394706756863, -0.022701356183672722, 'Escuelas, colectivos locales'), 'Educadores ambientales': Text(-0.3376881999568012, -0.0939486817055718, 'Educadores ambientales'), 'Medios con RSE': Text(0.17161761104575038, 0.03261259494747053, 'Medios con RSE'), 'UNESCO, Earth Charter': Text(0.9317063651521044, -0.1467434476446215, 'UNESCO, Earth Charter'), 'CNDH, SCJN': Text(-0.7329092783805801, 0.33906489309281845, 'CNDH, SCJN'), 'Defensores del territorio, OSCs': Text(-0.5765605564284207, 0.6397703709159593, 'Defensores del territorio, OSCs'), 'Antropólogos, juristas ambientales': Text(-0.29510675600987063, 0.8148470124102042, 'Antropólogos, juristas ambientales'), 'Firmas legales privadas': Text(0.10207251495003579, -0.0022922649118228442, 'Firmas legales privadas'), 'Global Witness, Amnistía': Text(-0.9659551117559497, 0.016953226320716063, 'Global Witness, Amnistía'), 'SENER, CFE': Text(0.7897226257873027, 0.16172834926327925, 'SENER, CFE'), 'Comunidades afectadas': Text(0.6394836387000499, -0.8807533919494067, 'Comunidades afectadas'), 'Investigadores de energía': Text(0.3276777768343505, -0.9083822044443148, 'Investigadores de energía'), 'Empresas renovables': Text(0.9475442303928199, -0.10298153233030226, 'Empresas renovables'), 'OXFAM, International Rivers': Text(0.1926767689808367, -0.9568163057797556, 'OXFAM, International Rivers')}</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 1.0, 'DAG: Relación entre Temas y Actores')</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(np.float64(-1.1668725426815705), np.float64(1.1484616613184406), np.float64(-1.1928359912515305), np.float64(1.0293692412661075))</code></pre>
+</div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="actores_files/figure-html/dag-t-act-output-1.png" id="dag-t-act" class="img-fluid figure-img"></p>
+<p><img src="actores_files/figure-html/DAG-t-act-17.png" class="img-fluid figure-img" width="1728"></p>
 </figure>
 </div>
 </div>
