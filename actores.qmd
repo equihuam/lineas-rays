@@ -1,21 +1,39 @@
 ---
 title: "Líneas de investigación RAYS"
 format: html
+
+execute: 
+  cache: false
+  freeze: auto
 ---
 
-## Semejanza entre los temas
-
 ```{python}
-#| label: dist-temas
+#| label: inicio
 #| echo: false
 
 # Reimportar bibliotecas necesarias después del reinicio del entorno
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_distances
+from scipy.cluster.hierarchy import dendrogram, linkage
+from scipy.spatial.distance import squareform
+from scipy.cluster.hierarchy import leaves_list
+from scipy.cluster.hierarchy import fcluster
 import matplotlib.pyplot as plt
 import seaborn as sns
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
 
+
+```
+
+
+## Semejanza entre los temas
+
+```{python}
+#| label: dist-temas
+#| echo: false
 
 # Lista actualizada de temas proporcionados por el usuario
 temas_nuevos = [
@@ -52,9 +70,85 @@ plt.show()
 
 
 ```
+## Relevancia vs originalidad
+
+```{python}
+#| label: rel-vs-orig
+#| echo: false
+
+# Tema
+data_updated = {
+    "Tema": [
+        "Cambio global, sostenibilidad y dinámica del paisaje",
+        "Conservación y manejo comunitario de la biodiversidad",
+        "Evaluación ambiental, restauración y manejo de ecosistemas",
+        "Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad",
+        "Gestión del agua y procesos hidrológicos",
+        "Políticas y justicia socioambiental",
+        "Sistemática y ecología de insectos",
+        "Tecnología para el monitoreo ambiental"
+    ],
+    "Relevancia": [9, 8, 8, 7, 8, 7, 7, 7],
+    "Originalidad": [6, 7, 6, 8, 6, 8, 8, 7]
+}
+
+df_updated = pd.DataFrame(data_updated)
+
+# Asignar un color distinto a cada tema
+colors = plt.cm.tab10.colors  # paleta de colores
+df_updated["Color"] = colors[:len(df_updated)]
+
+# Agregar pequeños desplazamientos aleatorios controlados para separar puntos cercanos
+np.random.seed(42)
+jitter_strength = 0.1
+
+df_updated["Relevancia_jitter"] = df_updated["Relevancia"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
+df_updated["Originalidad_jitter"] = df_updated["Originalidad"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
+
+# Crear el gráfico de dispersión con los puntos ajustados
+plt.figure(figsize=(10, 6))
+for i, row in df_updated.iterrows():
+    plt.scatter(row["Relevancia_jitter"], row["Originalidad_jitter"], color=row["Color"], s=100)
+
+# Añadir la leyenda con los mismos colores
+for i, row in df_updated.iterrows():
+    plt.plot([], [], 'o', color=row["Color"], label=row["Tema"])
+
+plt.title("Relevancia vs. Originalidad de Temas (sin traslape)")
+plt.xlabel("Relevancia (1-10)")
+plt.ylabel("Originalidad (1-10)")
+plt.xlim(5.5, 9.5)
+plt.ylim(5.5, 9.5)
+plt.grid(True)
+plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1), fontsize=8)
+plt.tight_layout()
+
+plt.show()
+```
 
 
-### Resumen de popularidad
+```{python}
+#| label: relevancia
+#| echo: false
+
+# Ordenar los temas por relevancia de mayor a menor
+sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia", ascending=False).reset_index(drop=True)
+sorted_relevance
+```
+
+
+```{python}
+#| label: originalidad
+#| echo: false
+
+sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Originalidad", ascending=False).reset_index(drop=True)
+sorted_originalidad
+
+```
+
+
+
+### Resumen de Relevancia (¿popularidad?)
 
 Muy alta: Cambio climático, restauración y monitoreo con IA — reciben la mayoría de las publicaciones y financiación.
 
@@ -64,15 +158,7 @@ Media: Políticas socioambientales y estudios sociocognitivos — en ascenso int
 
 Moderada: Sistemática de insectos — campo especializado, pero beneficiado por tendencias tecnológicas.
 
-```{r}
-library(readr)
-library(flextable)
 
-tema_relevancia <- read_csv("~/0 Versiones/lineas-rays/data/Analisis_Temas_con_Politicas_P_blicas.csv")
-
-flextable(tema_relevancia)
-
-```
 
 
 ## Análisis de temas y actores
@@ -82,9 +168,6 @@ flextable(tema_relevancia)
 ```{python}
 #| label: temas-orig-act
 #| echo: false
-
-import networkx as nx
-
 
 # Lista de todos los temas y sus actores asociados (estimados)
 tema_actor_data = {
@@ -144,13 +227,12 @@ plt.tight_layout()
 plt.show()
 
 ```
+
 ## Dendrograma
+
 ```{python}
 #| label: dendro
 #| echo: false
-
-from scipy.cluster.hierarchy import dendrogram, linkage
-from scipy.spatial.distance import squareform
 
 # Usar la matriz de distancias ya calculada para los temas
 # Convertirla a formato condicional para linkage
@@ -315,10 +397,6 @@ plt.show()
 ```{python}
 #| label: clusters
 #| echo: false
-
-# Usar el dendrograma previamente generado para ordenar los temas por proximidad
-from scipy.cluster.hierarchy import leaves_list
-from scipy.cluster.hierarchy import fcluster
 
 # Obtener el orden de los temas desde el dendrograma
 ordered_indices = leaves_list(linked)
@@ -559,8 +637,6 @@ ONGs: Pueden mediar entre comunidades y Estado, facilitar procesos participativo
 #| label: graf-act-interes 
 #| echo: false  
 
-import matplotlib.pyplot as plt
-
 # Definir los actores con sus niveles de interés e influencia
 actores = {
     "Gobiernos\ny universidades": (8, 9),
@@ -613,9 +689,6 @@ Qué tal un DAG de todo esto
 ```{python}
 #| label: DAG
 #| echo: false 
-
-import networkx as nx
-import matplotlib.pyplot as plt
 
 # Crear grafo dirigido
 G = nx.DiGraph()
@@ -757,11 +830,6 @@ plt.show()
 ```{python}
 #| label: DAG-t-act
 #| echo: false
-
-
-import networkx as nx
-import matplotlib.pyplot as plt
-import pandas as pd
 
 # Crear la matriz con columnas de Tema, Actor, Nivel de Interés e Influencia
 data = [
