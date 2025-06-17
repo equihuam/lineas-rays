@@ -72,8 +72,10 @@ plt.show()
 ```
 ## Relevancia vs originalidad
 
+
+
 ```{python}
-#| label: rel-vs-orig
+#| label: relevancia
 #| echo: false
 
 # Tema
@@ -93,6 +95,27 @@ data_updated = {
 }
 
 df_updated = pd.DataFrame(data_updated)
+
+# Ordenar los temas por relevancia de mayor a menor
+sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia", ascending=False).reset_index(drop=True)
+sorted_relevance
+```
+
+
+```{python}
+#| label: originalidad
+#| echo: false
+
+sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Originalidad", ascending=False).reset_index(drop=True)
+sorted_originalidad
+
+```
+
+
+
+```{python}
+#| label: rel-vs-orig
+#| echo: false
 
 # Asignar un color distinto a cada tema
 colors = plt.cm.tab10.colors  # paleta de colores
@@ -125,27 +148,6 @@ plt.tight_layout()
 
 plt.show()
 ```
-
-
-```{python}
-#| label: relevancia
-#| echo: false
-
-# Ordenar los temas por relevancia de mayor a menor
-sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia", ascending=False).reset_index(drop=True)
-sorted_relevance
-```
-
-
-```{python}
-#| label: originalidad
-#| echo: false
-
-sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Originalidad", ascending=False).reset_index(drop=True)
-sorted_originalidad
-
-```
-
 
 
 ### Resumen de Relevancia (¿popularidad?)
