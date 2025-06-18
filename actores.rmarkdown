@@ -7,11 +7,13 @@ execute:
   freeze: auto
 ---
 
+```{r}
+library(flextable)
+```
 
 ```{python}
 #| label: inicio
 #| echo: false
-#| output: asis
 
 # Reimportar bibliotecas necesarias después del reinicio del entorno
 import pandas as pd
@@ -39,14 +41,19 @@ temas = {
       "Políticas y justicia socioambiental",
       "Sistemática y ecología de insectos",
       "Tecnología para el monitoreo ambiental"]}
+"a".join(["bbbb"])
 
 temas_df = pd.DataFrame(temas)
 
-temas_df
+temas_df.style
 ```
 
 
+
+
 ## Semejanza entre los temas
+
+
 
 ```{python}
 #| label: dist-temas
@@ -54,22 +61,21 @@ temas_df
 
 # Vectorizar los temas con TF-IDF
 vectorizer = TfidfVectorizer()
-X_nuevos = vectorizer.fit_transform(temas_df["tema"])
+X_nuevos = vectorizer.fit_transform(temas_df.tema)
 
 # Calcular la matriz de distancias (coseno)
 dist_matrix_nuevos = cosine_distances(X_nuevos)
 
 # Crear un DataFrame para visualización
 dist_df_nuevos = pd.DataFrame(dist_matrix_nuevos, 
-                              index=temas_df["id"], 
-                              columns=temas_df["id"])
+                              index=temas_df.id, 
+                              columns=temas_df.id)
 
 # Graficar el mapa de calor con la matriz de distancias calculada
 plt.figure(figsize=(7.2, 4.7))
 sns.set(font_scale=0.55)
 # cmap="YlGnBu" o YlOrRd
-sns.heatmap(dist_df_nuevos, annot=True, cmap="YlGnBu", 
-            xticklabels=True, yticklabels=True)
+sns.heatmap(dist_df_nuevos, annot=True, cmap="YlGnBu", xticklabels=True, yticklabels=True)
 plt.title("Matriz de calor: Distancia semántica entre temas", fontsize=9)
 plt.xticks(rotation=45, ha='right', fontsize=8)
 plt.yticks(rotation=0, fontsize=8)
@@ -78,7 +84,11 @@ plt.show()
 
 
 ```
+
+
 ## Relevancia vs originalidad
+
+
 
 
 
@@ -109,7 +119,6 @@ sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia
 sorted_relevance
 ```
 
-
 ```{python}
 #| label: originalidad
 #| echo: false
@@ -118,8 +127,6 @@ sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Origi
 sorted_originalidad
 
 ```
-
-
 
 ```{python}
 #| label: rel-vs-orig
@@ -158,6 +165,8 @@ plt.show()
 ```
 
 
+
+
 ### Resumen de Relevancia (¿popularidad?)
 
 Muy alta: Cambio climático, restauración y monitoreo con IA — reciben la mayoría de las publicaciones y financiación.
@@ -174,69 +183,40 @@ Moderada: Sistemática de insectos — campo especializado, pero beneficiado por
 
 ## Dendrograma
 
+
+
 ```{python}
 #| label: dendro
 #| echo: false
 
+# Usar la matriz de distancias ya calculada para los temas
+# Convertirla a formato condicional para linkage
+condensed_dist = squareform(dist_matrix_nuevos)
 
-# Lista de temas completos
-temas = [
-    "Cambio global, sostenibilidad y dinámica del paisaje",
-    "Conservación y manejo comunitario de la biodiversidad",
-    "Evaluación ambiental, restauración y manejo de ecosistemas",
-    "Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad",
-    "Gestión del agua y procesos hidrológicos",
-    "Políticas y justicia socioambiental",
-    "Sistemática y ecología de insectos",
-    "Tecnología para el monitoreo ambiental"
-]
-
-# Etiquetas cortas para el eje x
-etiquetas_cortas = [
-    "Cambio global",
-    "Conservación comunitaria",
-    "Evaluación ambiental",
-    "Estudios socioecológicos",
-    "Gestión del agua",
-    "Justicia socioambiental",
-    "Ecología de insectos",
-    "Monitoreo ambiental"
-]
-
-# Vectorización TF-IDF
-vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(temas)
-
-# Calcular matriz de distancias coseno
-dist_matrix = cosine_distances(X)
-condensed_dist = squareform(dist_matrix)
-
-# Generar clusters jerárquicos
+# Realizar el agrupamiento jerárquico
 linked = linkage(condensed_dist, method='ward')
 
-# Graficar dendrograma con etiquetas cortas
+# Graficar dendrograma
 plt.figure(figsize=(12, 6))
-dendrogram(
-    linked,
-    labels=etiquetas_cortas,
-    orientation='top',
-    distance_sort='ascending',
-    leaf_rotation=45
-)
-plt.title("Dendrograma de temas (etiquetas abreviadas)")
+
+dendrogram(linked, 
+           labels=temas_nuevos, 
+           orientation='top', 
+           distance_sort='ascending', 
+           leaf_rotation=90)
+
+plt.title("Dendrograma de temas (agrupamiento jerárquico por similitud semántica)")
 plt.tight_layout()
 plt.show()
 
-# Opcional: mostrar leyenda
-leyenda = pd.DataFrame({
-    "Etiqueta Corta": etiquetas_cortas,
-    "Tema Completo": temas
-})
-print(leyenda)
 ```
+
+
 ## Análisis de temas y actores
 
 ### Vinculación 
+
+
 
 ```{python}
 #| label: vincula-actores
@@ -297,7 +277,11 @@ plt.show()
 
 ```
 
+
+
 ### Actores transversales
+
+
 
 ```{python}
 #| label: act-transversal
@@ -379,7 +363,11 @@ plt.show()
 ```
 
 
+
+
 ### Cluster temáticos
+
+
 
 ```{python}
 #| label: clusters
@@ -387,7 +375,7 @@ plt.show()
 
 # Obtener el orden de los temas desde el dendrograma
 ordered_indices = leaves_list(linked)
-temas_ordenados = [temas_df.id[i] for i in ordered_indices]
+temas_ordenados = [temas_nuevos[i] for i in ordered_indices]
 
 # Concatenar los temas por cercanía temática
 temas_concatenados = " → ".join(temas_ordenados)
@@ -400,7 +388,7 @@ clusters = fcluster(linked, num_clusters, criterion='maxclust')
 
 # Crear DataFrame con temas y su cluster
 df_clusters = pd.DataFrame({
-    "Tema": temas_df["tema"],
+    "Tema": temas_nuevos,
     "Cluster": clusters
 }).sort_values("Cluster")
 
@@ -443,6 +431,8 @@ plt.show()
 
 
 ```
+
+
 
 
 **Cluster 1:** Sistemas naturales y cambio global
@@ -620,6 +610,8 @@ Gobiernos y universidades: Actores con capacidad técnica y decisional; son indi
 ONGs: Pueden mediar entre comunidades y Estado, facilitar procesos participativos y fortalecer capacidades locales.
 
 
+
+
 ```{python}
 #| label: graf-act-interes 
 #| echo: false  
@@ -671,7 +663,11 @@ plt.show()
 ```
 
 
+
+
 Qué tal un DAG de todo esto
+
+
 
 ```{python}
 #| label: DAG
@@ -750,6 +746,8 @@ plt.show()
 ```
 
 
+
+
 ### Agregando relaciones indirectas
 
 Dejé a los actores externos (como turismo, sector inmobiliario) desconectados intencionalmente porque, en el contexto de tu matriz de interés–influencia:
@@ -763,6 +761,8 @@ Dejé a los actores externos (como turismo, sector inmobiliario) desconectados i
 + Gobiernos / ONGs → Actores externos (regulación o mitigación de impactos).
 
  
+
+
 ```{python}
 #| label: DAG-ext 
 #| echo: false
@@ -812,7 +812,11 @@ plt.show()
 
 
 
+
+
 ## Temas y actores
+
+
 
 ```{python}
 #| label: DAG-t-act
@@ -912,4 +916,4 @@ plt.tight_layout()
 plt.show()
  
 ```
- 
+
