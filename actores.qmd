@@ -1,17 +1,19 @@
 ---
 title: "Líneas de investigación RAYS"
-format: html
+format: 
+  html: default
+  revealjs: default
 
 execute: 
   cache: false
   freeze: auto
 ---
 
+## Líneas de investigación {.smaller}
 
 ```{python}
 #| label: inicio
 #| echo: false
-#| output: asis
 
 # Reimportar bibliotecas necesarias después del reinicio del entorno
 import pandas as pd
@@ -28,12 +30,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from tabulate import tabulate
-from IPython.display import Markdown
+from IPython.display import Markdown, HTML, display
 from itables import show
 
 # Lista actualizada de temas proporcionados por el usuario
 temas = {
   "id": ["tema_" + str(i + 1) for i in range(8)],
+  "tema corto": [
+    "Cambio global",
+    "Conservación comunitaria",
+    "Evaluación ambiental",
+    "Estudios socioecológicos",
+    "Gestión del agua",
+    "Justicia socioambiental",
+    "Ecología de insectos",
+    "Monitoreo ambiental"],
   "tema": [
       "Cambio global, sostenibilidad y dinámica del paisaje",
       "Conservación y manejo comunitario de la biodiversidad",
@@ -46,11 +57,13 @@ temas = {
 
 temas_df = pd.DataFrame(temas)
 
+# Formas de tabulación de DataFrame
 #Markdown(tabulate(temas_df, showindex=False, 
 #          headers=temas_df.columns ))
-           
-show(temas_df)
+#           
+#show(temas_df[["tema corto", "tema"]])
 
+temas_df[["tema corto", "tema"]].style.hide().set_properties(**{'font-size': '18pt'})
 
 ```
 
@@ -58,7 +71,7 @@ show(temas_df)
 \ 
 
 
-## Semejanza entre los temas
+## Distancia "semántica" entre temas
 
 ```{python}
 #| label: dist-temas
@@ -73,8 +86,8 @@ dist_matrix_nuevos = cosine_distances(X_nuevos)
 
 # Crear un DataFrame para visualización
 dist_df_nuevos = pd.DataFrame(dist_matrix_nuevos, 
-                              index=temas_df["id"], 
-                              columns=temas_df["id"])
+                              index=temas_df["tema corto"], 
+                              columns=temas_df["tema corto"])
 
 # Graficar el mapa de calor con la matriz de distancias calculada
 plt.figure(figsize=(7.2, 4.7))
@@ -82,9 +95,11 @@ sns.set(font_scale=0.55)
 # cmap="YlGnBu" o YlOrRd
 sns.heatmap(dist_df_nuevos, annot=True, cmap="YlGnBu", 
             xticklabels=True, yticklabels=True)
-plt.title("Matriz de calor: Distancia semántica entre temas", fontsize=9)
+#plt.title("Matriz de calor: Distancia semántica entre temas", fontsize=9)
 plt.xticks(rotation=45, ha='right', fontsize=8)
 plt.yticks(rotation=0, fontsize=8)
+plt.ylabel(None)
+plt.xlabel(None)
 plt.tight_layout()
 plt.show()
 
@@ -98,7 +113,7 @@ plt.show()
 #| label: relevancia
 #| echo: false
 
-# Tema
+# Tema actualizado con estimaciones de relevancia y originalidad
 data_updated = {
     "Tema": [
         "Cambio global, sostenibilidad y dinámica del paisaje",
@@ -114,26 +129,23 @@ data_updated = {
     "Originalidad": [6, 7, 6, 8, 6, 8, 8, 7]
 }
 
-df_updated = pd.DataFrame(data_updated)
+temas_df["relevancia"] = data_updated["Relevancia"]
+temas_df["originalidad"] = data_updated["Originalidad"]
 
-# Ordenar los temas por relevancia de mayor a menor
-sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia", ascending=False).reset_index(drop=True)
- 
-show(sorted_relevance)
-```
+df_updated = temas_df
 
+class_specific_css = ".small_font { font-size: 2rem; }"
+display(HTML(f"<style>{class_specific_css}</style>" ""))
 
-```{python}
-#| label: originalidad
-#| echo: false
-
-sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Originalidad", ascending=False).reset_index(drop=True)
-
-show(sorted_originalidad)
+show(temas_df[["tema corto", "originalidad", "relevancia"]].sort_values(by=["originalidad"],ascending = False),
+     classes="display nowrap small_font")
 
 ```
 
 
+
+
+##
 
 ```{python}
 #| label: rel-vs-orig
@@ -147,8 +159,8 @@ df_updated["Color"] = colors[:len(df_updated)]
 np.random.seed(42)
 jitter_strength = 0.2
 
-df_updated["Relevancia_jitter"] = df_updated["Relevancia"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
-df_updated["Originalidad_jitter"] = df_updated["Originalidad"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
+df_updated["Relevancia_jitter"] = df_updated["relevancia"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
+df_updated["Originalidad_jitter"] = df_updated["originalidad"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
 
 # Crear el gráfico de dispersión con los puntos ajustados
 plt.figure(figsize=(10, 6))
@@ -157,7 +169,7 @@ for i, row in df_updated.iterrows():
 
 # Añadir la leyenda con los mismos colores
 for i, row in df_updated.iterrows():
-    plt.plot([], [], 'o', color=row["Color"], label=row["Tema"])
+    plt.plot([], [], 'o', color=row["Color"], label=row["tema"])
 
 plt.title("Relevancia vs. Originalidad de Temas", fontsize=14)
 plt.xlabel("Relevancia (1-10)", fontsize=12)
@@ -174,7 +186,8 @@ plt.show()
 ```
 
 
-### Resumen de Relevancia (¿popularidad?)
+
+## Resumen de Relevancia (¿popularidad?)
 
 Muy alta: Cambio climático, restauración y monitoreo con IA — reciben la mayoría de las publicaciones y financiación.
 
