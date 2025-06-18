@@ -134,6 +134,8 @@ temas_df["originalidad"] = data_updated["Originalidad"]
 
 df_updated = temas_df
 
+
+    
 class_specific_css = ".small_font { font-size: 2rem; }"
 display(HTML(f"<style>{class_specific_css}</style>" ""))
 
@@ -154,22 +156,29 @@ show(temas_df[["tema corto", "originalidad", "relevancia"]].sort_values(by=["ori
 # Asignar un color distinto a cada tema
 colors = plt.cm.tab10.colors  # paleta de colores
 df_updated["Color"] = colors[:len(df_updated)]
+temas_df["color"] = colors[:len(df_updated)]
 
 # Agregar pequeños desplazamientos aleatorios controlados para separar puntos cercanos
 np.random.seed(42)
-jitter_strength = 0.2
+jitter_strength = 0.15
 
-df_updated["Relevancia_jitter"] = df_updated["relevancia"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
-df_updated["Originalidad_jitter"] = df_updated["originalidad"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
+temas_df["Relevancia_jitter"] = df_updated["relevancia"] + \
+                                np.random.uniform(-jitter_strength, 
+                                                   jitter_strength, 
+                                                   size=len(df_updated))
+temas_df["Originalidad_jitter"] = df_updated["originalidad"] + \
+                                  np.random.uniform(-jitter_strength, 
+                                                     jitter_strength, 
+                                                     size=len(df_updated))
 
 # Crear el gráfico de dispersión con los puntos ajustados
 plt.figure(figsize=(10, 6))
-for i, row in df_updated.iterrows():
-    plt.scatter(row["Relevancia_jitter"], row["Originalidad_jitter"], color=row["Color"], s=100)
+for i, row in temas_df.iterrows():
+    plt.scatter(row["Relevancia_jitter"], row["Originalidad_jitter"], color=row["color"], s=100)
 
 # Añadir la leyenda con los mismos colores
-for i, row in df_updated.iterrows():
-    plt.plot([], [], 'o', color=row["Color"], label=row["tema"])
+for i, row in temas_df.iterrows():
+    plt.plot([], [], 'o', color=row["color"], label=row["tema"])
 
 plt.title("Relevancia vs. Originalidad de Temas", fontsize=14)
 plt.xlabel("Relevancia (1-10)", fontsize=12)
@@ -201,40 +210,19 @@ Moderada: Sistemática de insectos — campo especializado, pero beneficiado por
 
 
 
-## Dendrograma
+## Dendrograma de temas {style="text-align: center;"}
+
+\ 
 
 ```{python}
 #| label: dendro
 #| echo: false
+#| fig-align: center
 
-
-# Lista de temas completos
-temas = [
-    "Cambio global, sostenibilidad y dinámica del paisaje",
-    "Conservación y manejo comunitario de la biodiversidad",
-    "Evaluación ambiental, restauración y manejo de ecosistemas",
-    "Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad",
-    "Gestión del agua y procesos hidrológicos",
-    "Políticas y justicia socioambiental",
-    "Sistemática y ecología de insectos",
-    "Tecnología para el monitoreo ambiental"
-]
-
-# Etiquetas cortas para el eje x
-etiquetas_cortas = [
-    "Cambio global",
-    "Conservación comunitaria",
-    "Evaluación ambiental",
-    "Estudios socioecológicos",
-    "Gestión del agua",
-    "Justicia socioambiental",
-    "Ecología de insectos",
-    "Monitoreo ambiental"
-]
 
 # Vectorización TF-IDF
 vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(temas)
+X = vectorizer.fit_transform(temas_df["tema"])
 
 # Calcular matriz de distancias coseno
 dist_matrix = cosine_distances(X)
@@ -244,25 +232,37 @@ condensed_dist = squareform(dist_matrix)
 linked = linkage(condensed_dist, method='ward')
 
 # Graficar dendrograma con etiquetas cortas
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(10, 8))
 dendrogram(
     linked,
-    labels=etiquetas_cortas,
+    labels=temas_df["tema corto"].to_list(),
     orientation='top',
     distance_sort='ascending',
     leaf_rotation=45
 )
-plt.title("Dendrograma de temas (etiquetas abreviadas)")
 plt.tight_layout()
+plt.yticks(fontsize=14)
+plt.yticks(fontsize=14)
 plt.show()
 
-# Opcional: mostrar leyenda
-leyenda = pd.DataFrame({
-    "Etiqueta Corta": etiquetas_cortas,
-    "Tema Completo": temas
-})
+```
 
-show(leyenda)
+
+```{python}
+#| label: leyenda
+#| echo: false
+#| eval: false
+
+class_specific_css = """
+                       .small_font { font-size: 0.6rem; } 
+                       .dataTable th {font-size: 0.9rem;}
+                     """
+display(HTML(f"<style>{class_specific_css}</style>" ""))
+
+show(temas_df[["tema corto", "tema"]],
+     classes="display nowrap small_font")
+
+
 
 ```
 
@@ -270,27 +270,47 @@ show(leyenda)
 \ 
 \ 
 
-## Análisis de temas y actores
+## Temas y actores clave {style="text-align: center;"}
 
-### Vinculación 
 
 ```{python}
 #| label: vincula-actores
 #| echo: false
+#| fig-align: center
 
 # Definir los actores clave a vincular
 actores_clave = ["Gubernamentales", "Académicos", "Comunidades rurales", "Indígenas", "Jóvenes", "Mujeres"]
 
 # Establecer relaciones estimadas entre temas y actores
 tema_actor_clave_data = {
-    "Cambio global": ["Gubernamentales", "Académicos", "Jóvenes"],
-    "Conservación comunitaria": ["Indígenas", "Comunidades rurales", "Académicos", "Mujeres"],
-    "Evaluación ambiental": ["Gubernamentales", "Comunidades rurales", "Académicos"],
-    "Estudios ocioecológicos": ["Jóvenes", "Mujeres", "Académicos", "Indígenas"],
-    "Gestión del agua": ["Gubernamentales", "Comunidades rurales", "Indígenas", "Académicos"],
-    "Justicia socioambiental": ["Gubernamentales", "Indígenas", "Mujeres", "Académicos", "Jóvenes"],
-    "Ecología de insectos": ["Académicos", "Gubernamentales"],
-    "Monitoreo ambiental": ["Gubernamentales", "Académicos", "Jóvenes"]
+    "Cambio global": ["Gubernamentales", 
+                      "Académicos", 
+                      "Jóvenes"],
+    "Conservación comunitaria": ["Indígenas", 
+                                 "Comunidades rurales", 
+                                 "Académicos", 
+                                 "Mujeres"],
+    "Evaluación ambiental": ["Gubernamentales", 
+                             "Comunidades rurales", 
+                             "Académicos"],
+    "Estudios ocioecológicos": ["Jóvenes", 
+                                "Mujeres", 
+                                "Académicos", 
+                                "Indígenas"],
+    "Gestión del agua": ["Gubernamentales", 
+                         "Comunidades rurales", 
+                         "Indígenas", 
+                         "Académicos"],
+    "Justicia socioambiental": ["Gubernamentales", 
+                                "Indígenas", 
+                                "Mujeres", 
+                                "Académicos", 
+                                "Jóvenes"],
+    "Ecología de insectos": ["Académicos", 
+                             "Gubernamentales"],
+    "Monitoreo ambiental": ["Gubernamentales", 
+                            "Académicos", 
+                            "Jóvenes"]
 }
 
 # Crear DataFrame de vínculos
@@ -313,31 +333,32 @@ for _, row in df_vinculos.iterrows():
     G_vinculos.add_edge(tema, actor)
 
 # Posiciones para graficar
-pos = nx.spring_layout(G_vinculos, seed=42, k=0.7)
+pos = nx.spring_layout(G_vinculos, seed=42, k=0.2)
 
 # Separar nodos por tipo
 tema_nodes = [n for n in G_vinculos.nodes if G_vinculos.nodes[n]['type'] == 'tema']
 actor_nodes = [n for n in G_vinculos.nodes if G_vinculos.nodes[n]['type'] == 'actor']
 
 # Graficar
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(12, 9))
 nx.draw_networkx_nodes(G_vinculos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=500, label="Temas")
 nx.draw_networkx_nodes(G_vinculos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=500, label="Actores")
 nx.draw_networkx_edges(G_vinculos, pos)
-nx.draw_networkx_labels(G_vinculos, pos, font_size=12)
+nx.draw_networkx_labels(G_vinculos, pos, font_size=14)
 
-plt.title("Gráfico relacional: Temas y actores clave", fontsize=14 )
 plt.axis('off')
 plt.tight_layout()
 plt.show()
 
 ```
 
-### Actores transversales
+
+## Temas y Actores Transversales {style="text-align: center;"}
 
 ```{python}
 #| label: act-transversal
 #| echo: false
+#| fig-align: center
 
 # Nuevos actores clave propuestos
 nuevos_actores = [
@@ -351,31 +372,27 @@ nuevos_actores = [
 
 # Relaciones estimadas entre los temas y estos nuevos actores
 tema_nuevos_actores = {
-    "Cambio global ": [
-        "Gobiernos y tomadores de decisiones", "Instituciones académicas y científicas"
-    ],
-    "Conservación comunitaria": [
-        "Comunidades locales/rurales e indígenas", "Organizaciones sociales y ONGs", "Instituciones académicas y científicas"
-    ],
-    "Evaluación ambiental": [
-        "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas", "Instituciones académicas y científicas"
-    ],
-    "Estudios socioecológicos ": [
-        "Organizaciones sociales y ONGs", "Instituciones académicas y científicas", "Comunidades locales/rurales e indígenas"
-    ],
-    "Gestión del agua ": [
-        "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas", "Instituciones académicas y científicas"
-    ],
-    "Justicia socioambiental": [
-        "Organizaciones sociales y ONGs", "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas"
-    ],
-    "Ecología de insectos": [
-        "Instituciones académicas y científicas", "Productores rurales / campesinos"
-    ],
-    "Monitoreo ambiental": [
-        "Gobiernos y tomadores de decisiones", "Instituciones académicas y científicas"
-    ]
-}
+    "Cambio global ": ["Gobiernos y tomadores de decisiones", 
+                       "Instituciones académicas y científicas"],
+    "Conservación comunitaria": ["Comunidades locales/rurales e indígenas", 
+                                 "Organizaciones sociales y ONGs", 
+                                 "Instituciones académicas y científicas"],
+    "Evaluación ambiental": ["Gobiernos y tomadores de decisiones", 
+                             "Comunidades locales/rurales e indígenas", 
+                             "Instituciones académicas y científicas"],
+    "Estudios socioecológicos ": ["Organizaciones sociales y ONGs", 
+                                  "Instituciones académicas y científicas", 
+                                  "Comunidades locales/rurales e indígenas"],
+    "Gestión del agua ": ["Gobiernos y tomadores de decisiones", 
+                          "Comunidades locales/rurales e indígenas", 
+                          "Instituciones académicas y científicas"],
+    "Justicia socioambiental": ["Organizaciones sociales y ONGs", 
+                                "Gobiernos y tomadores de decisiones", 
+                                "Comunidades locales/rurales e indígenas"],
+    "Ecología de insectos": ["Instituciones académicas y científicas", 
+                             "Productores rurales / campesinos"],
+    "Monitoreo ambiental": ["Gobiernos y tomadores de decisiones", 
+                            "Instituciones académicas y científicas"]}
 
 
 # Crear DataFrame de vínculos
@@ -403,15 +420,13 @@ tema_nodes = [n for n in G_nuevos.nodes if G_nuevos.nodes[n]['type'] == 'tema']
 actor_nodes = [n for n in G_nuevos.nodes if G_nuevos.nodes[n]['type'] == 'actor']
 
 # Graficar
-plt.figure(figsize=(14, 10))
+plt.figure(figsize=(15.2, 8.5))
 nx.draw_networkx_nodes(G_nuevos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=700, label="Temas")
 nx.draw_networkx_nodes(G_nuevos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=600, label="Actores")
 nx.draw_networkx_edges(G_nuevos, pos)
-nx.draw_networkx_labels(G_nuevos, pos, font_size=12)
+nx.draw_networkx_labels(G_nuevos, pos, font_size=10)
 
-plt.title("Gráfico relacional: Temas y nuevos actores clave", fontsize=14      )
 plt.axis('off')
-#plt.tight_layout()
 plt.show()
 
 ```
@@ -441,7 +456,7 @@ clusters = fcluster(linked, num_clusters, criterion='maxclust')
 # Crear DataFrame con temas y su cluster
 df_clusters = pd.DataFrame({
     "Tema": temas_df["tema"],
-    "Corto": leyenda["Etiqueta Corta"], 
+    "Corto": temas_df["tema corto"], 
     "Cluster": clusters
 }).sort_values("Cluster")
 
