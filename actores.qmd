@@ -26,6 +26,10 @@ import seaborn as sns
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+from tabulate import tabulate
+from IPython.display import Markdown
+from itables import show
 
 # Lista actualizada de temas proporcionados por el usuario
 temas = {
@@ -42,8 +46,16 @@ temas = {
 
 temas_df = pd.DataFrame(temas)
 
-temas_df
+#Markdown(tabulate(temas_df, showindex=False, 
+#          headers=temas_df.columns ))
+           
+show(temas_df)
+
+
 ```
+
+\ 
+\ 
 
 
 ## Semejanza entre los temas
@@ -106,7 +118,8 @@ df_updated = pd.DataFrame(data_updated)
 
 # Ordenar los temas por relevancia de mayor a menor
 sorted_relevance = df_updated[["Tema", "Relevancia"]].sort_values(by="Relevancia", ascending=False).reset_index(drop=True)
-sorted_relevance
+ 
+show(sorted_relevance)
 ```
 
 
@@ -115,7 +128,8 @@ sorted_relevance
 #| echo: false
 
 sorted_originalidad = df_updated[["Tema", "Originalidad"]].sort_values(by="Originalidad", ascending=False).reset_index(drop=True)
-sorted_originalidad
+
+show(sorted_originalidad)
 
 ```
 
@@ -131,7 +145,7 @@ df_updated["Color"] = colors[:len(df_updated)]
 
 # Agregar pequeños desplazamientos aleatorios controlados para separar puntos cercanos
 np.random.seed(42)
-jitter_strength = 0.1
+jitter_strength = 0.2
 
 df_updated["Relevancia_jitter"] = df_updated["Relevancia"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
 df_updated["Originalidad_jitter"] = df_updated["Originalidad"] + np.random.uniform(-jitter_strength, jitter_strength, size=len(df_updated))
@@ -145,13 +159,15 @@ for i, row in df_updated.iterrows():
 for i, row in df_updated.iterrows():
     plt.plot([], [], 'o', color=row["Color"], label=row["Tema"])
 
-plt.title("Relevancia vs. Originalidad de Temas (sin traslape)")
-plt.xlabel("Relevancia (1-10)")
-plt.ylabel("Originalidad (1-10)")
+plt.title("Relevancia vs. Originalidad de Temas", fontsize=14)
+plt.xlabel("Relevancia (1-10)", fontsize=12)
+plt.ylabel("Originalidad (1-10)", fontsize=12)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
 plt.xlim(5.5, 9.5)
 plt.ylim(5.5, 9.5)
 plt.grid(True)
-plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1), fontsize=8)
+plt.legend(loc='best', bbox_to_anchor=(0.97, 0.95), fontsize=8)
 plt.tight_layout()
 
 plt.show()
@@ -232,8 +248,15 @@ leyenda = pd.DataFrame({
     "Etiqueta Corta": etiquetas_cortas,
     "Tema Completo": temas
 })
-print(leyenda)
+
+show(leyenda)
+
 ```
+
+
+\ 
+\ 
+
 ## Análisis de temas y actores
 
 ### Vinculación 
@@ -247,14 +270,14 @@ actores_clave = ["Gubernamentales", "Académicos", "Comunidades rurales", "Indí
 
 # Establecer relaciones estimadas entre temas y actores
 tema_actor_clave_data = {
-    "Cambio global, sostenibilidad y dinámica del paisaje": ["Gubernamentales", "Académicos", "Jóvenes"],
-    "Conservación y manejo comunitario de la biodiversidad": ["Indígenas", "Comunidades rurales", "Académicos", "Mujeres"],
-    "Evaluación ambiental, restauración y manejo de ecosistemas": ["Gubernamentales", "Comunidades rurales", "Académicos"],
-    "Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad": ["Jóvenes", "Mujeres", "Académicos", "Indígenas"],
-    "Gestión del agua y procesos hidrológicos": ["Gubernamentales", "Comunidades rurales", "Indígenas", "Académicos"],
-    "Políticas y justicia socioambiental": ["Gubernamentales", "Indígenas", "Mujeres", "Académicos", "Jóvenes"],
-    "Sistemática y ecología de insectos": ["Académicos", "Gubernamentales"],
-    "Tecnología para el monitoreo ambiental": ["Gubernamentales", "Académicos", "Jóvenes"]
+    "Cambio global": ["Gubernamentales", "Académicos", "Jóvenes"],
+    "Conservación comunitaria": ["Indígenas", "Comunidades rurales", "Académicos", "Mujeres"],
+    "Evaluación ambiental": ["Gubernamentales", "Comunidades rurales", "Académicos"],
+    "Estudios ocioecológicos": ["Jóvenes", "Mujeres", "Académicos", "Indígenas"],
+    "Gestión del agua": ["Gubernamentales", "Comunidades rurales", "Indígenas", "Académicos"],
+    "Justicia socioambiental": ["Gubernamentales", "Indígenas", "Mujeres", "Académicos", "Jóvenes"],
+    "Ecología de insectos": ["Académicos", "Gubernamentales"],
+    "Monitoreo ambiental": ["Gubernamentales", "Académicos", "Jóvenes"]
 }
 
 # Crear DataFrame de vínculos
@@ -284,13 +307,13 @@ tema_nodes = [n for n in G_vinculos.nodes if G_vinculos.nodes[n]['type'] == 'tem
 actor_nodes = [n for n in G_vinculos.nodes if G_vinculos.nodes[n]['type'] == 'actor']
 
 # Graficar
-plt.figure(figsize=(16, 12))
-nx.draw_networkx_nodes(G_vinculos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=2200, label="Temas")
-nx.draw_networkx_nodes(G_vinculos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=1200, label="Actores")
+plt.figure(figsize=(10, 8))
+nx.draw_networkx_nodes(G_vinculos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=500, label="Temas")
+nx.draw_networkx_nodes(G_vinculos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=500, label="Actores")
 nx.draw_networkx_edges(G_vinculos, pos)
-nx.draw_networkx_labels(G_vinculos, pos, font_size=9)
+nx.draw_networkx_labels(G_vinculos, pos, font_size=12)
 
-plt.title("Gráfico relacional: Temas y actores clave")
+plt.title("Gráfico relacional: Temas y actores clave", fontsize=14 )
 plt.axis('off')
 plt.tight_layout()
 plt.show()
@@ -311,34 +334,36 @@ nuevos_actores = [
     "Organizaciones sociales y ONGs",
     "Productores rurales / campesinos"
 ]
+ 
 
 # Relaciones estimadas entre los temas y estos nuevos actores
 tema_nuevos_actores = {
-    "Cambio global, sostenibilidad y dinámica del paisaje": [
+    "Cambio global ": [
         "Gobiernos y tomadores de decisiones", "Instituciones académicas y científicas"
     ],
-    "Conservación y manejo comunitario de la biodiversidad": [
+    "Conservación comunitaria": [
         "Comunidades locales/rurales e indígenas", "Organizaciones sociales y ONGs", "Instituciones académicas y científicas"
     ],
-    "Evaluación ambiental, restauración y manejo de ecosistemas": [
+    "Evaluación ambiental": [
         "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas", "Instituciones académicas y científicas"
     ],
-    "Estudios sociocognitivos y herramientas socioecológicas para la sustentabilidad": [
+    "Estudios socioecológicos ": [
         "Organizaciones sociales y ONGs", "Instituciones académicas y científicas", "Comunidades locales/rurales e indígenas"
     ],
-    "Gestión del agua y procesos hidrológicos": [
+    "Gestión del agua ": [
         "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas", "Instituciones académicas y científicas"
     ],
-    "Políticas y justicia socioambiental": [
+    "Justicia socioambiental": [
         "Organizaciones sociales y ONGs", "Gobiernos y tomadores de decisiones", "Comunidades locales/rurales e indígenas"
     ],
-    "Sistemática y ecología de insectos": [
+    "Ecología de insectos": [
         "Instituciones académicas y científicas", "Productores rurales / campesinos"
     ],
-    "Tecnología para el monitoreo ambiental": [
+    "Monitoreo ambiental": [
         "Gobiernos y tomadores de decisiones", "Instituciones académicas y científicas"
     ]
 }
+
 
 # Crear DataFrame de vínculos
 nuevos_vinculos = []
@@ -358,26 +383,28 @@ for _, row in df_nuevos_vinculos.iterrows():
     G_nuevos.add_edge(row["Tema"], row["Actor Asociado"])
 
 # Posicionamiento
-pos = nx.spring_layout(G_nuevos, seed=42, k=0.7)
+pos = nx.spring_layout(G_nuevos, seed=42, k=0.2)
 
 # Separar nodos
 tema_nodes = [n for n in G_nuevos.nodes if G_nuevos.nodes[n]['type'] == 'tema']
 actor_nodes = [n for n in G_nuevos.nodes if G_nuevos.nodes[n]['type'] == 'actor']
 
 # Graficar
-plt.figure(figsize=(16, 12))
-nx.draw_networkx_nodes(G_nuevos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=2200, label="Temas")
-nx.draw_networkx_nodes(G_nuevos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=1200, label="Actores")
+plt.figure(figsize=(14, 10))
+nx.draw_networkx_nodes(G_nuevos, pos, nodelist=tema_nodes, node_shape='s', node_color='lightgreen', node_size=700, label="Temas")
+nx.draw_networkx_nodes(G_nuevos, pos, nodelist=actor_nodes, node_color='lightcoral', node_size=600, label="Actores")
 nx.draw_networkx_edges(G_nuevos, pos)
-nx.draw_networkx_labels(G_nuevos, pos, font_size=9)
+nx.draw_networkx_labels(G_nuevos, pos, font_size=12)
 
-plt.title("Gráfico relacional: Temas y nuevos actores clave")
+plt.title("Gráfico relacional: Temas y nuevos actores clave", fontsize=14      )
 plt.axis('off')
-plt.tight_layout()
+#plt.tight_layout()
 plt.show()
 
 ```
 
+\ 
+\ 
 
 ### Cluster temáticos
 
@@ -387,7 +414,7 @@ plt.show()
 
 # Obtener el orden de los temas desde el dendrograma
 ordered_indices = leaves_list(linked)
-temas_ordenados = [temas_df.id[i] for i in ordered_indices]
+temas_ordenados = [temas_df.tema[i] for i in ordered_indices]
 
 # Concatenar los temas por cercanía temática
 temas_concatenados = " → ".join(temas_ordenados)
@@ -401,6 +428,7 @@ clusters = fcluster(linked, num_clusters, criterion='maxclust')
 # Crear DataFrame con temas y su cluster
 df_clusters = pd.DataFrame({
     "Tema": temas_df["tema"],
+    "Corto": leyenda["Etiqueta Corta"], 
     "Cluster": clusters
 }).sort_values("Cluster")
 
