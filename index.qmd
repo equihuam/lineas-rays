@@ -558,17 +558,17 @@ for i in range(len(temas_ordenados) - 1):
     G_conceptual.add_edge(temas_ordenados[i], temas_ordenados[i+1])
 
 # Posición con spring layout
-pos = nx.spring_layout(G_conceptual, seed=42, k=1.2)
+pos = nx.spring_layout(G_conceptual, seed=42, k=0.3)
 
 # Dibujar grafo con colores por cluster
-plt.figure(figsize=(10, 5.5))
+plt.figure(figsize=(16, 7.5))
 
 for cluster in df_clusters["Cluster"].unique():
     cluster_nodes = df_clusters[df_clusters["Cluster"] == cluster]["Tema"].tolist()
     nx.draw_networkx_nodes(G_conceptual, pos, nodelist=cluster_nodes, node_color=cluster_colors[cluster], node_size=500, label=f"Cluster {cluster}")
 
 nx.draw_networkx_edges(G_conceptual, pos)
-nx.draw_networkx_labels(G_conceptual, pos, font_size=9)
+nx.draw_networkx_labels(G_conceptual, pos, font_size=12)
 
 plt.axis('off')
 plt.legend()
