@@ -11,7 +11,7 @@ execute:
 
 title-slide-attributes:
     data-background-image: "img/Diapositiva1.PNG"
-    data-background-size: "80%"
+    data-background-size: "90%"
     data-background-opacity: "50%"
 
 ---
