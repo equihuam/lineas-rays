@@ -196,10 +196,10 @@ Algunos actores externos (como turismo, sector inmobiliario) parecen estar al ma
 + Su impacto es más indirecto (por ejemplo, presión sobre el suelo, recursos hídricos o biodiversidad).
 + Sin embargo, esto no significa que deban ignorarse. 
 
-En una versión más estratégica podríamos considerar vinculos de vigilancia o conflicto potencial, especialmente desde:
+En una versión más estratégica podríamos considerar vínculos de vigilancia o conflicto potencial, especialmente desde:
 
 + Comunidades locales → Actores externos (por impacto territorial).
-+ Gobiernos / ONGs → Actores externos (regulación o mitigación de impactos).
++ Gobiernos / ONGs → Actores externos (regulación o migración de impactos).
 
 
 
@@ -561,7 +561,7 @@ for i in range(len(temas_ordenados) - 1):
 pos = nx.spring_layout(G_conceptual, seed=42, k=0.3)
 
 # Dibujar grafo con colores por cluster
-plt.figure(figsize=(16, 7.5))
+plt.figure(figsize=(17, 7.5))
 
 for cluster in df_clusters["Cluster"].unique():
     cluster_nodes = df_clusters[df_clusters["Cluster"] == cluster]["Tema"].tolist()
@@ -797,7 +797,7 @@ Este grupo aborda temas más **sistémicos, biofísicos y globales**. Involucra 
 :::
 
 
-# Material comoplementario
+# Material complementario
 
 ## Temas y actores clave {style="text-align: center;"}
 
@@ -964,7 +964,7 @@ plt.show()
 ## DAG: Relación entre Temas y Actores
 
 ```{python}
-#| label: DAG-t-act
+#| label: DAG-to-act
 #| echo: false
 
 # Crear la matriz con columnas de Tema, Actor, Nivel de Interés e Influencia
@@ -1203,7 +1203,7 @@ Descripción:
 
 Temas incluidos:
 
-+ Conservación y manejo comunitario de la biodiversida 
++ Conservación y manejo comunitario de la biodiversidad 
 + Evaluación ambiental, restauración y manejo de ecosistemas
 + Políticas y justicia socioambiental
 
