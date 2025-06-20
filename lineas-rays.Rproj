@@ -11,3 +11,7 @@ Encoding: UTF-8
 
 RnwWeave: knitr
 LaTeX: pdfLaTeX
+
+PythonType: conda
+PythonVersion: 3.12.11
+PythonPath: C:/miniconda3/envs/r-py/python.exe

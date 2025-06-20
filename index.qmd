@@ -3,11 +3,16 @@ title: "Líneas de investigación RAYS"
 format: 
   revealjs:
     auto-stretch: false
+    footer: "[i-Gamma](index.qmd)"
 
 execute: 
   cache: false
   freeze: auto
 
+title-slide-attributes:
+    data-background-image: "img/Diapositiva1.PNG"
+    data-background-size: "80%"
+    data-background-opacity: "50%"
 
 ---
 
