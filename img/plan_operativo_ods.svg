@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="1600" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <style>
+    .title { font-size: 36px; font-weight: bold; fill: #333; }
+    .subtitle { font-size: 24px; fill: #555; }
+    .cluster-title { font-size: 26px; font-weight: bold; fill: white; }
+    .section-title { font-size: 20px; font-weight: bold; fill: #333; }
+    .text { font-size: 18px; fill: #222; }
+  </style>
+
+  <rect x="0" y="0" width="1200" height="1600" fill="#f9f9f9"/>
+
+  <text x="600" y="60" class="title" text-anchor="middle">Plan Operativo · Ciencia Abierta y Clústeres Temáticos</text>
+  <text x="600" y="100" class="subtitle" text-anchor="middle">Estrategias, actores clave y ODS vinculados</text>
+
+  <rect x="50" y="140" width="340" height="1400" fill="#4CAF50" rx="15"/>
+  <rect x="430" y="140" width="340" height="1400" fill="#2196F3" rx="15"/>
+  <rect x="810" y="140" width="340" height="1400" fill="#F44336" rx="15"/>
+
+  <text x="220" y="180" class="cluster-title" text-anchor="middle">🟢 Restauración y Justicia</text>
+  <text x="600" y="180" class="cluster-title" text-anchor="middle">🔵 Tecnología y Sociedad</text>
+  <text x="990" y="180" class="cluster-title" text-anchor="middle">🔴 Cambio Global</text>
+
+  <!-- Cluster 1 -->
+  <text x="70" y="220" class="section-title">🎯 Objetivo:</text>
+  <text x="70" y="250" class="text">Empoderar comunidades locales con justicia ecológica.</text>
+  <text x="70" y="290" class="section-title">👥 Actores:</text>
+  <text x="70" y="320" class="text">Comunidades, ONGs, academia, gobiernos locales</text>
+  <text x="70" y="370" class="section-title">⚙️ Acciones:</text>
+  <text x="70" y="400" class="text">• Planes abiertos de conservación</text>
+  <text x="70" y="430" class="text">  Co-creación con saberes locales.</text>
+  <text x="70" y="470" class="text">• Mapas participativos</text>
+  <text x="70" y="500" class="text">  Datos comunitarios sobre territorio y biodiversidad.</text>
+  <text x="70" y="540" class="text">• Guías en lenguas originarias</text>
+  <text x="70" y="570" class="text">  Material accesible y adaptado culturalmente.</text>
+  <text x="70" y="620" class="section-title">🎯 ODS:</text>
+  <image x="70" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-10.jpg"/>
+  <image x="120" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg"/>
+  <image x="170" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-16.jpg"/>
+
+  <!-- Cluster 2 -->
+  <text x="450" y="220" class="section-title">🎯 Objetivo:</text>
+  <text x="450" y="250" class="text">Desarrollar soluciones inclusivas con base tecnológica.</text>
+  <text x="450" y="290" class="section-title">👥 Actores:</text>
+  <text x="450" y="320" class="text">Estudiantes, ONGs, comunidades, academia técnica</text>
+  <text x="450" y="370" class="section-title">⚙️ Acciones:</text>
+  <text x="450" y="400" class="text">• Ciencia ciudadana abierta</text>
+  <text x="450" y="430" class="text">  Participación comunitaria con datos abiertos.</text>
+  <text x="450" y="470" class="text">• Hackatones rurales</text>
+  <text x="450" y="500" class="text">  Soluciones locales en colaboración tecnológica.</text>
+  <text x="450" y="540" class="text">• Repositorios multilingües</text>
+  <text x="450" y="570" class="text">  Conocimiento accesible para todas las comunidades.</text>
+  <text x="450" y="620" class="section-title">🎯 ODS:</text>
+  <image x="450" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-4.jpg"/>
+  <image x="500" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-9.jpg"/>
+  <image x="550" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg"/>
+
+  <!-- Cluster 3 -->
+  <text x="830" y="220" class="section-title">🎯 Objetivo:</text>
+  <text x="830" y="250" class="text">Abrir conocimiento para fortalecer decisiones ecológicas.</text>
+  <text x="830" y="290" class="section-title">👥 Actores:</text>
+  <text x="830" y="320" class="text">Investigadores, gobiernos, productores, técnicos</text>
+  <text x="830" y="370" class="section-title">⚙️ Acciones:</text>
+  <text x="830" y="400" class="text">• Observatorios abiertos</text>
+  <text x="830" y="430" class="text">  Monitoreo en tiempo real de variables ambientales.</text>
+  <text x="830" y="470" class="text">• Modelos predictivos libres</text>
+  <text x="830" y="500" class="text">  Herramientas abiertas para la gestión de riesgos.</text>
+  <text x="830" y="540" class="text">• Atlas digitales abiertos</text>
+  <text x="830" y="570" class="text">  Visualización pública de datos científicos y técnicos.</text>
+  <text x="830" y="620" class="section-title">🎯 ODS:</text>
+  <image x="830" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-6.jpg"/>
+  <image x="880" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg"/>
+  <image x="930" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg"/>
+  <image x="980" y="650" width="40" height="40" href="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg"/>
+
+  <!-- Footer -->
+  <text x="600" y="1550" class="subtitle" text-anchor="middle">Basado en principios de ciencia abierta: inclusión, co-creación, acceso libre y saber compartido.</text>
+</svg>

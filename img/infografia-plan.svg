@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1200"
+   height="800"
+   font-family="Arial, sans-serif"
+   version="1.1"
+   id="svg37"
+   sodipodi:docname="infografia-plan.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs37" />
+  <sodipodi:namedview
+     id="namedview37"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.7325"
+     inkscape:cx="606.82594"
+     inkscape:cy="394.53925"
+     inkscape:window-width="1440"
+     inkscape:window-height="830"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg37" />
+  <style
+     id="style1">
+    .title { font-size: 28px; font-weight: bold; fill: #333; }
+    .subtitle { font-size: 18px; fill: #555; }
+    .cluster-title { font-size: 20px; font-weight: bold; fill: white; }
+    .section-title { font-size: 16px; font-weight: bold; fill: #333; }
+    .text { font-size: 14px; fill: #222; }
+    .box { rx: 10; ry: 10; stroke: #ccc; stroke-width: 1; }
+  </style>
+  <!-- Backgrounds -->
+  <rect
+     x="0"
+     y="0"
+     width="1200"
+     height="800"
+     fill="#f8f8f8"
+     id="rect1" />
+  <!-- Titles -->
+  <text
+     x="600"
+     y="50"
+     class="title"
+     text-anchor="middle"
+     id="text1">Plan Operativo - Ciencia Abierta por Clúster</text>
+  <text
+     x="600"
+     y="80"
+     class="subtitle"
+     text-anchor="middle"
+     id="text2">Estrategias temáticas, actores clave y acciones abiertas</text>
+  <!-- Column backgrounds -->
+  <rect
+     x="50"
+     y="120"
+     width="340"
+     height="630"
+     fill="#4CAF50"
+     rx="15"
+     id="rect2" />
+  <rect
+     x="430"
+     y="120"
+     width="340"
+     height="630"
+     fill="#2196F3"
+     rx="15"
+     id="rect3" />
+  <rect
+     x="810"
+     y="120"
+     width="340"
+     height="630"
+     fill="#F44336"
+     rx="15"
+     id="rect4" />
+  <!-- Cluster Titles -->
+  <text
+     x="220"
+     y="150"
+     class="cluster-title"
+     text-anchor="middle"
+     id="text4">🟢 Restauración y Justicia</text>
+  <text
+     x="600"
+     y="150"
+     class="cluster-title"
+     text-anchor="middle"
+     id="text5">🔵 Tecnologías y Sociedad</text>
+  <text
+     x="990"
+     y="150"
+     class="cluster-title"
+     text-anchor="middle"
+     id="text6">🔴 Cambio Global</text>
+  <!-- Cluster 1 Content -->
+  <text
+     x="70"
+     y="190"
+     class="section-title"
+     id="text7">🎯 Objetivo:</text>
+  <text
+     x="70"
+     y="210"
+     class="text"
+     id="text8">Fortalecer capacidades locales y justicia ecológica.</text>
+  <text
+     x="70"
+     y="240"
+     class="section-title"
+     id="text9">👥 Actores:</text>
+  <text
+     x="70"
+     y="260"
+     class="text"
+     id="text10">Comunidades, ONGs, academia, gobiernos</text>
+  <text
+     x="70"
+     y="290"
+     class="section-title"
+     id="text11">⚙️ Acciones:</text>
+  <text
+     x="70"
+     y="310"
+     class="text"
+     id="text12">• Planes de conservación abiertos</text>
+  <text
+     x="70"
+     y="330"
+     class="text"
+     id="text13">• Mapas participativos</text>
+  <text
+     x="70"
+     y="350"
+     class="text"
+     id="text14">• Guías en lenguas originarias</text>
+  <text
+     x="70"
+     y="390"
+     class="section-title"
+     id="text15">🎯 ODS:</text>
+  <text
+     x="70"
+     y="410"
+     class="text"
+     id="text16">ODS 15 · 10 · 16</text>
+  <!-- Cluster 2 Content -->
+  <text
+     x="450"
+     y="190"
+     class="section-title"
+     id="text17">🎯 Objetivo:</text>
+  <text
+     x="450"
+     y="210"
+     class="text"
+     id="text18">Innovar con tecnologías sociales y educativas.</text>
+  <text
+     x="450"
+     y="240"
+     class="section-title"
+     id="text19">👥 Actores:</text>
+  <text
+     x="450"
+     y="260"
+     class="text"
+     id="text20">Estudiantes, ONGs, academia, comunidades</text>
+  <text
+     x="450"
+     y="290"
+     class="section-title"
+     id="text21">⚙️ Acciones:</text>
+  <text
+     x="450"
+     y="310"
+     class="text"
+     id="text22">• Ciencia ciudadana abierta</text>
+  <text
+     x="450"
+     y="330"
+     class="text"
+     id="text23">• Hackatones rurales</text>
+  <text
+     x="450"
+     y="350"
+     class="text"
+     id="text24">• Repositorios multimedia</text>
+  <text
+     x="450"
+     y="390"
+     class="section-title"
+     id="text25">🎯 ODS:</text>
+  <text
+     x="450"
+     y="410"
+     class="text"
+     id="text26">ODS 4 · 9 · 13</text>
+  <!-- Cluster 3 Content -->
+  <text
+     x="830"
+     y="190"
+     class="section-title"
+     id="text27">🎯 Objetivo:</text>
+  <text
+     x="830"
+     y="210"
+     class="text"
+     id="text28"
+     style="white-space:pre;inline-size:247.236"
+     xml:space="preserve"><tspan
+       x="830"
+       y="210"
+       id="tspan1">Abrir el conocimiento ecológico para </tspan><tspan
+       x="830"
+       y="227.5"
+       id="tspan2">decisión pública.</tspan></text>
+  <text
+     x="830"
+     y="240"
+     class="section-title"
+     id="text29">👥 Actores:</text>
+  <text
+     x="830"
+     y="260"
+     class="text"
+     id="text30">Investigadores, gobiernos, productores, técnicos</text>
+  <text
+     x="830"
+     y="290"
+     class="section-title"
+     id="text31">⚙️ Acciones:</text>
+  <text
+     x="830"
+     y="310"
+     class="text"
+     id="text32">• Observatorios abiertos</text>
+  <text
+     x="830"
+     y="330"
+     class="text"
+     id="text33">• Modelos predictivos libres</text>
+  <text
+     x="830"
+     y="350"
+     class="text"
+     id="text34">• Atlas digitales y colecciones</text>
+  <text
+     x="830"
+     y="390"
+     class="section-title"
+     id="text35">🎯 ODS:</text>
+  <text
+     x="830"
+     y="410"
+     class="text"
+     id="text36">ODS 6 · 11 · 13 · 15</text>
+  <!-- Footer -->
+  <text
+     x="600"
+     y="770"
+     class="subtitle"
+     text-anchor="middle"
+     id="text37">Basado en principios de ciencia abierta: acceso, co-creación y datos compartidos.</text>
+</svg>
