@@ -17,7 +17,7 @@ title-slide-attributes:
 ---
 
 
-## Líneas de investigación
+## Líneas de investigación {background-image="img/Diapositiva2.PNG"}
 
 \ 
 \ 
@@ -86,7 +86,7 @@ temas_df[["tema corto", "tema"]].style.hide().set_properties(**{'font-size': '18
 
 
 
-## Actores frecuentes y relevantes
+## Actores frecuentes y relevantes {background-image="img/Diapositiva2.PNG"}
 
 ```{python}
 #| label: actores-frec-rel
@@ -132,7 +132,7 @@ actores_FrecRel_df[["actor", "participacion"]].style \
 
 
 
-## Grupos clave (mínimalista) {style="text-align: center;"}
+## Grupos clave (mínimalista) {background-image="img/Diapositiva2.PNG" style="text-align: center;"}
 
 \ 
 \ 
@@ -164,7 +164,7 @@ actores_clave_df[["actores"]].style \
 
  
 
-## Grupos Transversales Clave 
+## Grupos Transversales Clave {background-image="img/Diapositiva2.PNG"}
 #### (Altamente Recurrentes)
 
 \ 
@@ -177,7 +177,7 @@ actores_clave_df[["actores"]].style \
 + Productores rurales / campesinos
 
 
-## Algunos detalles a considerar {.smaller}
+## Algunos detalles a considerar {background-image="img/Diapositiva2.PNG" .smaller}
 
 \ 
 
@@ -192,7 +192,7 @@ actores_clave_df[["actores"]].style \
   + Pueden mediar entre comunidades y Estado, facilitar procesos participativos y fortalecer capacidades locales.
 
 
-## Relaciones indirectas {.smaller}
+## Relaciones indirectas {background-image="img/Diapositiva2.PNG" .smaller}
 
 Algunos actores externos (como turismo, sector inmobiliario) parecen estar al margen de nuestros intereses comunes y potencial de influencia. Entre las razones que llevan a esta apreciación están las siguientes: 
 
@@ -208,7 +208,7 @@ En una versión más estratégica podríamos considerar vínculos de vigilancia 
 
 
 
-## Resumen de Relevancia
+## Resumen de Relevancia {background-image="img/Diapositiva2.PNG"}
 ### *(¿popularidad?)*
 
 \ 
@@ -256,7 +256,7 @@ estilo.set_td_classes(relevancia_df)
 
 
 
-## Distancia "semántica" entre temas {style="fig-align: center;"}
+## Distancia "semántica" entre temas {background-image="img/Diapositiva2.PNG" style="fig-align: center;"}
 
 \ 
 
@@ -296,7 +296,7 @@ plt.show()
 
 
 
-## Relevancia vs originalidad
+## Relevancia vs originalidad {background-image="img/Diapositiva2.PNG"}
 
 
 ```{python}
@@ -333,7 +333,7 @@ show(temas_df[["tema corto", "originalidad", "relevancia"]].sort_values(by=["ori
 
 
 
-##
+## {background-image="img/Diapositiva2.PNG"}
 
 ```{python}
 #| label: rel-vs-orig
@@ -380,7 +380,7 @@ plt.show()
 ```
 
 
-## Matriz de actores-interés 
+## Matriz de actores-interés {background-image="img/Diapositiva2.PNG"}
 
 \ 
 
@@ -397,7 +397,7 @@ plt.show()
 
 
 
-## 
+## {background-image="img/Diapositiva2.PNG"}
 
 ```{python}
 #| label: graf-act-interes 
@@ -454,7 +454,7 @@ plt.show()
 
 
 
-## Dendrograma de las líneas {style="text-align: center;"}
+## Dendrograma de las líneas {background-image="img/Diapositiva2.PNG" style="text-align: center;"}
 
 
 ```{python}
@@ -516,7 +516,7 @@ show(temas_df[["tema corto", "tema"]],
  
 
 
-## Mapa conceptual {style="fig-align: center;"}
+## Mapa conceptual {background-image="img/Diapositiva2.PNG" style="fig-align: center;"}
 ####  Temas agrupados por cercanía semántica (Clusters)
 
 ```{python}
@@ -586,7 +586,7 @@ plt.show()
 
 
 
-## DAG: Relaciones entre actores {style="fig-lign: center;"}
+## DAG: Relaciones entre actores {background-image="img/Diapositiva2.PNG" style="fig-lign: center;"}
  
 ```{python}
 #| label: DAG
@@ -703,7 +703,7 @@ plt.show()
 
  
  
-## Tres grupos síntesis... {.smaller}
+## Tres grupos síntesis... {background-image="img/Diapositiva2.PNG"  .smaller}
  
 
 #### 🟢 **Cluster 1: Restauración, conservación y justicia territorial**
@@ -732,7 +732,7 @@ Este grupo representa una agenda profundamente anclada en el territorio y la rel
 
 :::
 
-## ...Tres grupos síntesis... {.smaller}
+## ...Tres grupos síntesis... {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 #### 🔵 **Cluster 2: Enfoques tecnosociales para la sustentabilidad**
@@ -762,7 +762,7 @@ Este cluster se caracteriza por el **uso de herramientas innovadoras** –social
 
 
 
-## ...Tres grupos síntesis  {.smaller}
+## ...Tres grupos síntesis  {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 #### 🔴 **Cluster 3: Cambio global y sistemas ecológicos complejos**
@@ -792,7 +792,7 @@ Este grupo aborda temas más **sistémicos, biofísicos y globales**. Involucra 
 :::
 
 
-## 
+## {background-image="img/Diapositiva2.PNG"}
 
 :::{layout="[1,1]"}
 
@@ -802,7 +802,7 @@ Este grupo aborda temas más **sistémicos, biofísicos y globales**. Involucra 
 :::
 
 
-# Material complementario
+# Material complementario {background-image="img/Diapositiva2.PNG"}
 
 ## Temas y actores clave {style="text-align: center;"}
 
@@ -885,7 +885,7 @@ plt.show()
 
 
 
-## Temas y Actores Transversales {style="text-align: center;"}
+## Temas y Actores Transversales {background-image="img/Diapositiva2.PNG" style="text-align: center;"}
 
 ```{python}
 #| label: act-transversal
@@ -966,7 +966,7 @@ plt.show()
 \ 
 \ 
 
-## DAG: Relación entre Temas y Actores
+## DAG: Relación entre Temas y Actores {background-image="img/Diapositiva2.PNG"}
 
 ```{python}
 #| label: DAG-to-act
@@ -1068,7 +1068,7 @@ plt.show()
  
  
 
-## Temas reformulados {.smaller}
+## Temas reformulados {background-image="img/Diapositiva2.PNG" .smaller}
 
 1. Agroecología y sistemas alimentarios sustentables
 
@@ -1080,7 +1080,7 @@ plt.show()
   + Fortalecer bancos de germoplasma comunitarios.
   + Capacitar en innovación de sistemas tradicionales de producción.
 
-## {.smaller}
+## {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 2. Cambio global, sostenibilidad y dinámica del paisaje
@@ -1093,7 +1093,7 @@ plt.show()
   + Desarrollar planes de ordenamiento territorial sostenibles.
   + Promover estrategias de adaptación al cambio climático.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 3. Conservación y manejo comunitario de la biodiversidad
@@ -1106,7 +1106,7 @@ plt.show()
   + Promover gobernanza comunitaria de la biodiversidad.
   + Documentar y valorar saberes locales en conservación.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 4. Evaluación ambiental, restauración y manejo de ecosistemas
@@ -1119,7 +1119,7 @@ plt.show()
   + Diseñar proyectos de restauración ecológica con base científica.
   + Integrar criterios ecológicos en políticas de uso de suelo.
 
-## {.smaller}
+## {background-image="img/Diapositiva2.PNG" .smaller}
 
 
 5. Estudios sociocognitivos y herramientas socioecológicas
@@ -1132,7 +1132,7 @@ Puntos de acción:
   + Investigar percepciones locales sobre cambio ambiental.
   + Integrar ciencias cognitivas en proyectos de sustentabilidad.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 6. Gestión del agua y procesos hidrológicos
 
@@ -1144,7 +1144,7 @@ Puntos de acción:
   + Promover tecnologías de captación y uso eficiente.
   + Monitorear flujos hidrológicos con participación comunitaria.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 7. Políticas y justicia socioambiental
 
@@ -1156,7 +1156,7 @@ Puntos de acción:
   + Incidir en el diseño de marcos legales con enfoque de justicia ambiental.
   + Promover participación ciudadana en la formulación de políticas.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 8. Sistemática y ecología de insectos
 
@@ -1168,7 +1168,7 @@ Puntos de acción:
   + Estudiar relaciones ecológicas entre insectos y ambientes perturbados.
   + Capacitar en identificación y monitoreo de vectores.
 
-##  {.smaller}
+##  {background-image="img/Diapositiva2.PNG" .smaller}
 
 9. Tecnología para el monitoreo ambiental
 
@@ -1182,7 +1182,7 @@ Puntos de acción:
 
 
 
-##
+## {background-image="img/Diapositiva2.PNG"}
 
 **Cluster 1:** Sistemas naturales y cambio global
 
@@ -1200,7 +1200,7 @@ Descripción:
 
 :::
 
-##
+## {background-image="img/Diapositiva2.PNG"}
 
 **Cluster 2:** Restauración, conservación y justicia territorial
 
@@ -1218,7 +1218,7 @@ Descripción:
 
 :::
 
-##
+## {background-image="img/Diapositiva2.PNG"}
 
 **Cluster 3:** Herramientas sociales y tecnológicas para la sustentabilidad
 
@@ -1235,4 +1235,7 @@ Descripción:
 
 :::
   
+## {background-image="img/Diapositiva3.PNG"}
+
+[Gracias]{.absolute top="55%" left="55%" style="color: #4fbd8b; font-size: 3em;"} <!-- #4a67cb -->
 

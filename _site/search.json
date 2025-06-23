@@ -222,5 +222,26 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#section-14",
+    "href": "index.html#section-14",
+    "title": "Líneas de investigación RAYS",
+    "section": "",
+    "text": "Gracias"
+  },
+  {
+    "objectID": "index.html#background-imageimgdiapositiva3.png-style-valig-midle-text-align-center",
+    "href": "index.html#background-imageimgdiapositiva3.png-style-valig-midle-text-align-center",
+    "title": "Líneas de investigación RAYS",
+    "section": "{background-image=“img/Diapositiva3.PNG” style= “valig: midle; text-align: center;”}",
+    "text": "{background-image=“img/Diapositiva3.PNG” style= “valig: midle; text-align: center;”}\nGracias"
+  },
+  {
+    "objectID": "index.html#background-imageimgdiapositiva3.png-.absolute-top500-left-600",
+    "href": "index.html#background-imageimgdiapositiva3.png-.absolute-top500-left-600",
+    "title": "Líneas de investigación RAYS",
+    "section": "{background-image=“img/Diapositiva3.PNG” .absolute top=500 left= 600}",
+    "text": "{background-image=“img/Diapositiva3.PNG” .absolute top=500 left= 600}\nGracias"
   }
 ]
