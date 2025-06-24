@@ -4,6 +4,7 @@ format:
   revealjs:
     auto-stretch: false
     footer: "[i-Gamma](index.qmd)"
+    self-contained: true
 
 execute: 
   cache: false
@@ -25,6 +26,7 @@ title-slide-attributes:
 ```{python}
 #| label: inicio
 #| echo: false
+#| cache: true
 
 # Reimportar bibliotecas necesarias después del reinicio del entorno
 import pandas as pd
