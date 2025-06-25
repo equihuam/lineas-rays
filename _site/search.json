@@ -243,5 +243,19 @@
     "title": "Líneas de investigación RAYS",
     "section": "{background-image=“img/Diapositiva3.PNG” .absolute top=500 left= 600}",
     "text": "{background-image=“img/Diapositiva3.PNG” .absolute top=500 left= 600}\nGracias"
+  },
+  {
+    "objectID": "index.html#section",
+    "href": "index.html#section",
+    "title": "Líneas de investigación RAYS",
+    "section": "",
+    "text": "(array([6.5, 7. , 7.5, 8. , 8.5, 9. , 9.5]), [Text(6.5, 0, '6.5'), Text(7.0, 0, '7.0'), Text(7.5, 0, '7.5'), Text(8.0, 0, '8.0'), Text(8.5, 0, '8.5'), Text(9.0, 0, '9.0'), Text(9.5, 0, '9.5')])\n\n\n(array([5.5, 6. , 6.5, 7. , 7.5, 8. , 8.5]), [Text(0, 5.5, '5.5'), Text(0, 6.0, '6.0'), Text(0, 6.5, '6.5'), Text(0, 7.0, '7.0'), Text(0, 7.5, '7.5'), Text(0, 8.0, '8.0'), Text(0, 8.5, '8.5')])\n\n\n(5.5, 9.5)\n\n\n(5.5, 9.5)"
+  },
+  {
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
+    "title": "Líneas de investigación RAYS",
+    "section": "",
+    "text": "(0.0, 10.0)\n\n\n(0.0, 10.0)\n\n\n([Text(8.925806451612903, 9.354359925788499, 'Gobiernos\\ny universidades'), Text(8.085483870967742, 7.962894248608536, 'ONGs ambientales'), Text(9.033064516129032, 4.354359925788499, 'Comunidades rurales\\ne indígenas'), Text(8.775806451612903, 3.166048237476809, 'Productores agroecológicos'), Text(7.976612903225806, 2.280148423005566, 'Grupos juveniles\\ny escolares'), Text(5.336290322580645, 8.166975881261596, 'Instituciones tecnológicas'), Text(4.148387096774194, 6.851576994434139, 'Agencias no ambientales'), Text(6.281451612903226, 7.187384044526904, 'Empresas del sector\\nhídrico/agropecuario'), Text(3.007258064516129, 2.280148423005566, 'Población urbana\\nno organizada'), Text(4.181451612903226, 3.354359925788497, 'Actores externos\\n(turismo, inmobiliario)')], [])"
   }
 ]

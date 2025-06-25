@@ -13,5 +13,5 @@ RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 PythonType: conda
-PythonVersion: 3.12.11
-PythonPath: C:/miniconda3/envs/r-py/python.exe
+PythonVersion: 3.12.9
+PythonPath: C:/miniconda3/python.exe
