@@ -483,13 +483,15 @@ dendrogram(
     labels=temas_df["tema corto"].to_list(),
     orientation='top',
     distance_sort='ascending',
-    leaf_rotation=45
+    leaf_rotation=45,
+    color_threshold= 1.1
 )
 plt.tight_layout()
 plt.axhline(1.07, linestyle='--')
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 plt.show()
+
 
 ```
 
@@ -533,7 +535,6 @@ temas_ordenados = [temas_df.tema[i] for i in ordered_indices]
 # Concatenar los temas por cercanía temática
 temas_concatenados = " → ".join(temas_ordenados)
 
-temas_concatenados
 
 # Definir número de clusters (p. ej., 3 para visualizar grandes bloques temáticos)
 num_clusters = 3
@@ -567,17 +568,24 @@ for i in range(len(temas_ordenados) - 1):
 # Posición con spring layout
 pos = nx.spring_layout(G_conceptual, seed=42, k=0.3)
 
-# Dibujar grafo con colores por cluster
+# Dibujar grafo con colores por cluster    
 plt.figure(figsize=(17, 7.5))
+         
 
 for cluster in df_clusters["Cluster"].unique():
     cluster_nodes = df_clusters[df_clusters["Cluster"] == cluster]["Tema"].tolist()
-    nx.draw_networkx_nodes(G_conceptual, pos, nodelist=cluster_nodes, node_color=cluster_colors[cluster], node_size=500, label=f"Cluster {cluster}")
+    nx.draw_networkx_nodes(G_conceptual, 
+                           pos, 
+                           nodelist=cluster_nodes, 
+                           node_color=cluster_colors[cluster], 
+                           node_size=500, 
+                           alpha=0.7    ,      
+                           label=f"Cluster {cluster}")
 
-nx.draw_networkx_edges(G_conceptual, pos)
+nx.draw_networkx_edges(G_conceptual, pos, width=5, edge_color="silver", style="solid" )
 nx.draw_networkx_labels(G_conceptual, pos, font_size=12)
-
-plt.axis('off')
+  
+ax.axis('off')
 plt.legend()
 plt.tight_layout()
 plt.show()
